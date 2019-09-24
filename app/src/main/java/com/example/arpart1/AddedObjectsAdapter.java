@@ -89,3 +89,11 @@ public class AddedObjectsAdapter extends RecyclerView.Adapter<AddedObjectsAdapte
 
 
 }
+
+
+
+
+
+
+
+
