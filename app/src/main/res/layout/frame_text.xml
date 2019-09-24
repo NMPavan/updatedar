@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:padding="10dp"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:padding="12dp"
     android:textSize="30sp"
+    android:id="@+id/chair_frame1"
     android:background="@drawable/shape_background"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:textColor="#ffffff"
+    tool:text="abcsddgsf">
 
 </TextView>

@@ -53,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
     private ModelRenderable andyRenderable;
     TextView textPlane;
     int select=1;
-    ViewRenderable furnitureRenderable;
-    View arrlist[];
+
+
     AddedObjectsAdapter addedObjectsAdapter;
 
     @Override
@@ -77,6 +77,28 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private ViewRenderable IntializeViewRenderable() {
+        final ViewRenderable[] renderable = {null};
+        try {
+            ViewRenderable.builder()
+                    .setView(this,R.layout.frame_text)
+                    .build()
+                    .thenAccept(viewRenderable -> renderable[0] =viewRenderable)
+                    .exceptionally(
+                    throwable -> {
+                        Toast toast =
+                                Toast.makeText(this, "Unable to load andy renderable", Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.show();
+                        return null;
+                    });
+        } catch (Exception e) {
+            e.printStackTrace();
+            snackBarShow(e.getLocalizedMessage());
+        }
+        return renderable[0];
+    }
+
     private void planeTapAction() {
         arFragment.setOnTapArPlaneListener(
                 new BaseArFragment.OnTapArPlaneListener() {
@@ -97,15 +119,23 @@ public class MainActivity extends AppCompatActivity {
                             andy.setParent(anchorNode);
                             if (i == 2)
                                 andy.setLocalRotation(Quaternion.axisAngle(new Vector3(0, -1, 0), 90));
-                            andy.getTranslationController().setEnabled(false);//disble drag place interaction
+                            andy.getTranslationController().setEnabled(true);//disble drag place interaction
                             andy.setRenderable(andyRenderable);
                             andy.select();
+
+                            try {
+                                addName(anchorNode,andy);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                                snackBarShow(e.getLocalizedMessage());
+                            }
 
                             try {
                                 Utils.addedObjects.add(new AddedObject(anchorNode, i));
                                 addedObjectsAdapter.notifyDataSetChanged();
                             } catch (Exception e) {
                                 e.printStackTrace();
+                                snackBarShow(e.getLocalizedMessage());
 
                             }
 
@@ -118,6 +148,52 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    private void addName(AnchorNode anchorNode, TransformableNode andy) {
+
+
+        ViewRenderable tempViewRenderable= IntializeViewRenderable();
+        TransformableNode chairname = new TransformableNode(arFragment.getTransformationSystem());
+        chairname.setLocalPosition(new Vector3(0f,andy.getLocalPosition().y+0.5f,andy.getLocalPosition().z+0.5f));
+        chairname.setParent(anchorNode);
+        chairname.setRenderable(tempViewRenderable);
+        chairname.select();
+
+        TextView chair_text= (TextView) tempViewRenderable.getView();
+        String s=getTextViewText();
+        chair_text.setText(s);
+        chair_text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                chairname.setParent(null);
+                try {
+                    snackBarShow(s);
+                } catch (Exception e) {
+                    snackBarShow(e.getLocalizedMessage());
+
+                }
+
+            }
+        });
+    }
+
+    private String getTextViewText() {
+        String name = "";
+        switch (i) {
+            case 0:
+                name = "android";
+                break;
+            case 1:
+                name = "chair";
+
+                break;
+            case 2:
+                name = "table";
+
+                break;
+        }
+        return name;
     }
 
     private void addRecyclerViewSetUp() {
