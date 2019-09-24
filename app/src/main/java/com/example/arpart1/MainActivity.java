@@ -59,35 +59,25 @@ public class MainActivity extends AppCompatActivity {
     // FutureReturnValueIgnored is not valid
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         if (!checkIsSupportedDeviceOrFinish(this)) {
             return;
         }
 
         setContentView(R.layout.activity_ux);
-
-        addRecyclerViewSetUp();
         arFragment = (ArFragment) getSupportFragmentManager().findFragmentById(R.id.ux_fragment);
         textPlane = findViewById(R.id.plane_text);
+        addRecyclerViewSetUp();
         InitializeGallery();
+        planeTapAction();
 
+
+    }
+
+    private void planeTapAction() {
         arFragment.setOnTapArPlaneListener(
                 new BaseArFragment.OnTapArPlaneListener() {
                     @Override
                     public void onTapPlane(HitResult hitResult, Plane plane, MotionEvent motionEvent) {
-                        //
-                        textPlane.append("\n\n Plane hitResult.getDistance:" + hitResult.getDistance());
-                        if (andyRenderable == null) {
-                            return;
-                        }
-                        try {
-                            textPlane.append("\n Plane type name: " + plane.getType().name());
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-
-
-//                        textPlane.append("------one tap end------ ");
                         if (plane.getType().equals(Plane.Type.HORIZONTAL_UPWARD_FACING)
                                 && hitResult.getDistance() > THRESHOLD) {
                             // Create the Anchor.
@@ -115,9 +105,7 @@ public class MainActivity extends AppCompatActivity {
 
                         } else if (hitResult.getDistance() < THRESHOLD) {
                             snackBarShow("Please keep more distance between camera and selected position");
-//                                    Toast.makeText(MainActivity.this,
-//                          notifyDataSetChanged          "Please keep more distance between camera and selected position",
-//                                            Toast.LENGTH_LONG).show();
+
                         } else if (!plane.getType().equals(Plane.Type.HORIZONTAL_UPWARD_FACING)) {
                             snackBarShow(
                                     "Cannot place table on selected plane. please select vertically upward facing plane");
