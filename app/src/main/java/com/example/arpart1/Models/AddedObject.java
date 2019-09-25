@@ -2,11 +2,10 @@ package com.example.arpart1.Models;
 
 import com.google.ar.sceneform.AnchorNode;
 
-public class AddedObject
-{
+public class AddedObject {
 
-    private  AnchorNode anchorNode;
-    private  int i=0;
+    private AnchorNode anchorNode;
+    private int i = 0;
 
     public AddedObject(AnchorNode anchorNode, int i) {
 

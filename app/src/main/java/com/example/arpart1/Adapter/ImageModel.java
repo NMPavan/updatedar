@@ -19,7 +19,7 @@ public class ImageModel extends RecyclerView.Adapter<ImageModel.ImageModelViewHo
         Context context;
     private ArrayList<ImageDetailModel> modelImage;
 
-    public ImageModel(ArrayList<Integer> modelImage, Context context) {
+    public ImageModel(ArrayList<ImageDetailModel> modelImage, Context context) {
             //this.dataList = dataList;
             this.context = context;
             this.modelImage=modelImage;

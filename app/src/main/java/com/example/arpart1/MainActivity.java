@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.arpart1.AlerDialogs.ImageAlertDialog;
-import com.example.arpart1.AlerDialogs.ImageModelAlertDialog;
+import com.example.arpart1.AlerDialogs.ThreeDModelAlertDialog;
 import com.example.arpart1.AlerDialogs.TextAlertDialog;
 import com.example.arpart1.Utils.StaticData;
 import com.example.arpart1.databinding.ActivityMainBinding;
@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
     ImageAlertDialog imageAlertDialog;
     TextAlertDialog textAlertDialog;
-    ImageModelAlertDialog imageModelAlertDialog;
+    ThreeDModelAlertDialog threeDModelAlertDialog;
 
 
 
@@ -27,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         imageAlertDialog=new ImageAlertDialog(this);
         textAlertDialog=new TextAlertDialog(this);
-        imageModelAlertDialog=new ImageModelAlertDialog(this);
         setListeners();
 
 
@@ -36,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
     private void setListeners() {
 
         binding.Cl3dModel.setOnClickListener(view -> {
-            imageModelAlertDialog.createAlertDialog();
 
         });
         binding.ClImageModel.setOnClickListener(view -> {

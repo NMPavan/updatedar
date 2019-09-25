@@ -8,20 +8,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.example.arpart1.Adapter.ImageModel;
+import com.example.arpart1.Models.ImageDetailModel;
 import com.example.arpart1.R;
 import com.example.arpart1.databinding.ModelDisplayBinding;
 
 import java.util.ArrayList;
 
-public class ImageModelAlertDialog {
+public class ThreeDModelAlertDialog {
     Context context;
     ImageModel imageModel;
 
     ModelDisplayBinding binding;
-    ArrayList<Integer> modelImage = new ArrayList<Integer>();
+    ArrayList<ImageDetailModel> modelImage = new ArrayList<>();
 
 
-    public ImageModelAlertDialog(Context context) {
+    public ThreeDModelAlertDialog(Context context) {
         this.context = context;
     }
 
@@ -35,7 +36,7 @@ public class ImageModelAlertDialog {
         binding.ModelShow.setLayoutManager(new GridLayoutManager(context, 2));
 
 
-        addData();
+
         imageModel = new ImageModel(modelImage, context);
 
         binding.ModelShow.setAdapter(imageModel);
@@ -57,10 +58,6 @@ public class ImageModelAlertDialog {
         dialog.show();
     }
 
-    private void addData() {
-        modelImage.add(R.drawable.chair_thumb);
-        modelImage.add(R.drawable.images);
-        modelImage.add(R.drawable.fox);
-    }
+
 
 }
