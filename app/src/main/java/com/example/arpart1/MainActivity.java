@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import com.example.arpart1.databinding.ActivityMainBinding;
 
+
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
 
