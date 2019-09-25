@@ -24,6 +24,8 @@ import com.google.ar.core.Anchor;
 import com.google.ar.core.HitResult;
 import com.google.ar.core.Plane;
 import com.google.ar.sceneform.AnchorNode;
+import com.google.ar.sceneform.HitTestResult;
+import com.google.ar.sceneform.Node;
 import com.google.ar.sceneform.collision.Box;
 import com.google.ar.sceneform.math.Quaternion;
 import com.google.ar.sceneform.math.Vector3;
@@ -39,7 +41,7 @@ import com.google.ar.sceneform.ux.TransformableNode;
 public class SceneActivity extends AppCompatActivity {
     private static final String TAG = SceneActivity.class.getSimpleName();
     private static final double MIN_OPENGL_VERSION = 3.0;
-    private static final double THRESHOLD = 1.5;
+    private static final float THRESHOLD = 1.5f;
     int i = 0;
     private ArFragment arFragment;
     private ModelRenderable andyRenderable;
@@ -69,6 +71,7 @@ public class SceneActivity extends AppCompatActivity {
 
     }
 
+
     private ViewRenderable IntializeViewRenderable() {
         final ViewRenderable[] renderable = {null};
         try {
@@ -96,28 +99,42 @@ public class SceneActivity extends AppCompatActivity {
                 new BaseArFragment.OnTapArPlaneListener() {
                     @Override
                     public void onTapPlane(HitResult hitResult, Plane plane, MotionEvent motionEvent) {
+
                         if (plane.getType().equals(Plane.Type.HORIZONTAL_UPWARD_FACING)
                                 && hitResult.getDistance() > THRESHOLD) {
                             // Create the Anchor.
-                            Anchor anchor = hitResult.createAnchor();
-                            AnchorNode anchorNode = new AnchorNode(anchor);
-                            anchorNode.setParent(arFragment.getArSceneView().getScene());
-                            anchorNode.setLocalPosition(new Vector3(anchorNode.getLocalPosition().x, 0, anchorNode.getLocalPosition().z));
+                            AnchorNode anchorNode = null;
+                            try {
+                                Anchor anchor = hitResult.createAnchor();
+                                anchorNode = new AnchorNode(anchor);
+                                anchorNode.setParent(arFragment.getArSceneView().getScene());
+                                anchorNode.setLocalPosition(new Vector3(anchorNode.getLocalPosition().x, 0, anchorNode.getLocalPosition().z));
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                                snackBarShow(e.getLocalizedMessage());
+
+                            }
 
                             // Create the transformable andy and add it to the anchor.
-                            TransformableNode andy = new TransformableNode(arFragment.getTransformationSystem());
-                            //to set the postion of the object to the ground
-                            andy.setLocalPosition(new Vector3(0.0f, 0.0f, 0.0f));
-                            andy.setParent(anchorNode);
-                            if (i == 2)
-                                andy.setLocalRotation(Quaternion.axisAngle(new Vector3(0, -1, 0), 90));
-                            andy.getTranslationController().setEnabled(true);//disble drag place interaction
-                            andy.getScaleController().setMaxScale(1f);
-                            andy.getScaleController().setMinScale(1f);
-                            andy.setRenderable(andyRenderable);
-                            andy.select();
                             try {
-                                addName(anchorNode, andy, andyRenderable);
+                                TransformableNode andy = new TransformableNode(arFragment.getTransformationSystem());
+                                //to set the postion of the object to the ground
+                                andy.setLocalPosition(new Vector3(0.0f, 0.0f, 0.0f));
+                                andy.setParent(anchorNode);
+                                if (i == 2)
+                                    andy.setLocalRotation(Quaternion.axisAngle(new Vector3(0, -1, 0), 90));
+                                andy.getTranslationController().setEnabled(true);//disble drag place interaction
+                                andy.getScaleController().setMaxScale(1f);
+                                andy.getScaleController().setMinScale(1f);
+                                andy.setRenderable(andyRenderable);
+                                andy.select();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                                snackBarShow(e.getLocalizedMessage());
+
+                            }
+                            try {
+//                                addName(anchorNode, andy, andyRenderable);
                             } catch (Exception e) {
                                 e.printStackTrace();
                                 snackBarShow(e.getLocalizedMessage());
@@ -126,6 +143,36 @@ public class SceneActivity extends AppCompatActivity {
                             try {
                                 StaticData.addedObjects.add(new AddedObject(anchorNode, i));
                                 addedObjectsAdapter.notifyDataSetChanged();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                                snackBarShow(e.getLocalizedMessage());
+
+                            }
+                            try {
+                                anchorNode.setOnTapListener(new Node.OnTapListener() {
+                                    @Override
+                                    public void onTap(HitTestResult hitTestResult, MotionEvent motionEvent) {
+    //                               handleOnTouch(hitTestResult,motionEvent);
+                                        if (hitTestResult!=null && hitTestResult.getNode() != null) {
+                                            Log.d(TAG, "handleOnTouch hitTestResult.getNode() != null");
+                                            Node hitNode = hitTestResult.getNode();
+                                            try {
+                                                arFragment.getArSceneView().getScene().removeChild(hitNode);
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                                snackBarShow(e.getLocalizedMessage());
+
+                                            }
+                                            try {
+                                                hitNode.setParent(null);
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                                snackBarShow(e.getLocalizedMessage());
+
+                                            }
+                                        }
+                                    }
+                                });
                             } catch (Exception e) {
                                 e.printStackTrace();
                                 snackBarShow(e.getLocalizedMessage());
@@ -317,6 +364,7 @@ public class SceneActivity extends AppCompatActivity {
         }
     }
 
+
     /**
      * Returns false and displays an error message if Sceneform can not run, true if Sceneform can run
      * on this device.
@@ -347,6 +395,33 @@ public class SceneActivity extends AppCompatActivity {
     }
 
 
+    private void handleOnTouch(HitTestResult hitTestResult, MotionEvent motionEvent) {
+        Log.d(TAG, "handleOnTouch");
+        // First call ArFragment's listener to handle TransformableNodes.
+        arFragment.onPeekTouch(hitTestResult, motionEvent);
+
+        //We are only interested in the ACTION_UP events - anything else just return
+        if (motionEvent.getAction() != MotionEvent.ACTION_UP) {
+            return;
+        }
+
+        // Check for touching a Sceneform node
+        if (hitTestResult.getNode() != null) {
+            Log.d(TAG, "handleOnTouch hitTestResult.getNode() != null");
+            Node hitNode = hitTestResult.getNode();
+
+
+            if (hitNode.getRenderable() == andyRenderable) {
+                Toast.makeText(SceneActivity.this, "We've hit Andy!!", Toast.LENGTH_SHORT).show();
+                arFragment.getArSceneView().getScene().removeChild(hitNode);
+                hitNode.setParent(null);
+                hitNode = null;
+            }
+        }
+
+
+    }
 }
+
 
 
