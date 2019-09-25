@@ -47,9 +47,9 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
         imageViewHolder.recyclerText.setText(dataList.get(i).getName());
 
         if (index == i) {
-            imageViewHolder.imageLayout.setBackgroundColor(0xFFE8F0B0);
+            imageViewHolder.imageLayout.setCardBackgroundColor(0xFFE8F0B0);
         } else {
-            imageViewHolder.imageLayout.setBackgroundColor(Color.WHITE);
+            imageViewHolder.imageLayout.setCardBackgroundColor(Color.WHITE);
         }
     }
 
