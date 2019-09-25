@@ -7,13 +7,17 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.example.arpart1.AlerDialogs.ImageAlertDialog;
 import com.example.arpart1.AlerDialogs.TextAlertDialog;
 import com.example.arpart1.Utils.StaticData;
 import com.example.arpart1.databinding.ActivityMainBinding;
+import com.google.ar.core.HitResult;
+import com.google.ar.core.Plane;
 import com.google.ar.sceneform.ux.ArFragment;
+import com.google.ar.sceneform.ux.BaseArFragment;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -38,9 +42,14 @@ public class MainActivity extends AppCompatActivity {
         if (findViewById(arFragmentId) != null) {
             arFragment = (ArFragment) getSupportFragmentManager().findFragmentById(arFragmentId);
         }
-//
-//        if(arFragment!=null)
-//            ar
+
+        if(arFragment!=null)
+            arFragment.setOnTapArPlaneListener(new BaseArFragment.OnTapArPlaneListener() {
+                @Override
+                public void onTapPlane(HitResult hitResult, Plane plane, MotionEvent motionEvent) {
+                    
+                }
+            });
     }
 
     private void setListeners() {

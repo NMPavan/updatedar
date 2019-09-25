@@ -100,48 +100,32 @@ public class SceneActivity extends AppCompatActivity {
                         if (plane.getType().equals(Plane.Type.HORIZONTAL_UPWARD_FACING)
                                 && hitResult.getDistance() > THRESHOLD) {
                             // Create the Anchor.
-                            AnchorNode anchorNode = null;
-                            try {
-                                Anchor anchor = hitResult.createAnchor();
-                                Toast.makeText(SceneActivity.this, "1 anchor node works!", Toast.LENGTH_SHORT).show();
-
-                                anchorNode = new AnchorNode(anchor);
-                                Toast.makeText(SceneActivity.this, "2 anchor node works!", Toast.LENGTH_SHORT).show();
-
-                                anchorNode.setParent(arFragment.getArSceneView().getScene());
-                                Toast.makeText(SceneActivity.this, "3 anchor node works!", Toast.LENGTH_SHORT).show();
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                                snackBarShow(e.getLocalizedMessage());
-
-                            }
-//                            anchorNode.setLocalPosition(new Vector3(
-//                                    anchorn.getLocalPosition().x, 0, anchorNode.getLocalPosition().z));
+                            Anchor anchor = hitResult.createAnchor();
+                            AnchorNode anchorNode = new AnchorNode(anchor);
+                            anchorNode.setParent(arFragment.getArSceneView().getScene());
+                            anchorNode.setLocalPosition(new Vector3(
+                                    anchorNode.getLocalPosition().x, 0, anchorNode.getLocalPosition().z));
 
                             // Create the transformable andy and add it to the anchor.
-                            TransformableNode andy = null;
+                            TransformableNode andy = new TransformableNode(arFragment.getTransformationSystem());
                             try {
-                                andy = new TransformableNode(arFragment.getTransformationSystem());
-                                //to set the postion of the object to the ground
                                 andy.setLocalPosition(new Vector3(0.0f, 0.0f, 0.0f));
-                                andy.setParent(anchorNode);
-                                Toast.makeText(SceneActivity.this, "Transformable Node works!", Toast.LENGTH_SHORT).show();
-
-                                if (i == 2)
-                                    andy.setLocalRotation(Quaternion.axisAngle(new Vector3(0, -1, 0), 90));
-                                andy.getTranslationController().setEnabled(true);//disble drag place interaction
-                                andy.getScaleController().setMaxScale(1f);
-                                andy.getScaleController().setMinScale(1f);
-                                andy.setRenderable(andyRenderable);
-                                andy.select();
-                                Toast.makeText(SceneActivity.this, "Transformable Node transformed!", Toast.LENGTH_SHORT).show();
-
                             } catch (Exception e) {
                                 e.printStackTrace();
                                 snackBarShow(e.getLocalizedMessage());
 
                             }
+                            andy.setParent(anchorNode);
+                           /*
+                            todo:bug in these lines
+                            andy.getScaleController().setMaxScale(1f);
+                            andy.getScaleController().setMinScale(1f);*/
+                            if (i == 2)
+                                andy.setLocalRotation(Quaternion.axisAngle(new Vector3(0, -1, 0), 90));
+                            andy.getTranslationController().setEnabled(false);//disble drag place interaction
+                            andy.setRenderable(andyRenderable);
 
+                            andy.select();
 
                             try {
                                 addName(anchorNode, andy, andyRenderable);

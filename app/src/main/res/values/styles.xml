@@ -41,4 +41,13 @@
 
     </style>
 
+    <style name="selector_options_text">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:gravity">center</item>
+
+    </style>
+
 </resources>
