@@ -101,10 +101,10 @@ public class SceneActivity extends AppCompatActivity {
                                 && hitResult.getDistance() > THRESHOLD) {
                             // Create the Anchor.
                             Anchor anchor = hitResult.createAnchor();
-                            AnchorNode anchorNode = new AnchorNode(anchor);
-                            anchorNode.setParent(arFragment.getArSceneView().getScene());
-                            anchorNode.setLocalPosition(new Vector3(
-                                    anchorNode.getLocalPosition().x, 0, anchorNode.getLocalPosition().z));
+                                AnchorNode anchorNode = new AnchorNode(anchor);
+                                anchorNode.setParent(arFragment.getArSceneView().getScene());
+                                anchorNode.setLocalPosition(new Vector3(
+                                        anchorNode.getLocalPosition().x, 0, anchorNode.getLocalPosition().z));
 
                             // Create the transformable andy and add it to the anchor.
                             TransformableNode andy = new TransformableNode(arFragment.getTransformationSystem());
