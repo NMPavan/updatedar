@@ -1,6 +1,11 @@
 package com.example.arpart1.Models;
 
+import android.net.Uri;
+
 public class ArProduct {
+
+
+    private Uri uri;
 
     public enum ArProductType {
         THREED_MODEL,
@@ -36,5 +41,10 @@ public class ArProduct {
     public int getNewIdForModel() {
         return 0;
     }
+    public void setUri(Uri uri) {
+
+        this.uri = uri;
+    }
+
 
 }

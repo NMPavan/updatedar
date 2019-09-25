@@ -134,7 +134,6 @@ public class MainActivity extends AppCompatActivity {
         andy.setParent(anchorNode);
         andy.getTranslationController().setEnabled(false);//disble drag place interaction
         //todo: andy.setRenderable(andyRenderable);
-
         andy.select();
 
     }

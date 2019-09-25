@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.arpart1.Adapter.ImageAdapter;
 import com.example.arpart1.MainActivity;
+import com.example.arpart1.Models.ArProduct;
 import com.example.arpart1.Models.Images;
 import com.example.arpart1.R;
 
@@ -23,6 +24,8 @@ import com.example.arpart1.databinding.ImageAlertDialogBinding;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
+import static com.example.arpart1.Utils.StaticData.arProductToPlace;
 
 
 public class ImageAlertDialog {
@@ -85,6 +88,10 @@ public class ImageAlertDialog {
         binding.okSelectedImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                arProductToPlace=new ArProduct(0,ArProduct.ArProductType.IMAGE_MODEL);
+//                arProductToPlace.setUri()
+
                 dialog.dismiss();
             }
         });
