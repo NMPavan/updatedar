@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.arpart1.R;
+import com.example.arpart1.Utils.StaticData;
 import com.example.arpart1.databinding.TextAlertDialogBinding;
 
 public class TextAlertDialog {
@@ -73,6 +74,7 @@ public class TextAlertDialog {
                 if (!binding.okTextDialog.isEnabled()) {
                     Toast.makeText(context, "Please write something to show", Toast.LENGTH_SHORT).show();
                 } else {
+                    StaticData.selectedStringForModel=binding.textForPlane.getText().toString();
                     dialog.dismiss();
                 }
             }
