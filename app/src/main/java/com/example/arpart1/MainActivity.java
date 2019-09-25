@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         imageAlertDialog=new ImageAlertDialog(this);
         textAlertDialog=new TextAlertDialog(this);
+        threeDModelAlertDialog=new ThreeDModelAlertDialog(this);
         setListeners();
 
 
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private void setListeners() {
 
         binding.Cl3dModel.setOnClickListener(view -> {
+            threeDModelAlertDialog.createAlertDialog();
 
         });
         binding.ClImageModel.setOnClickListener(view -> {
