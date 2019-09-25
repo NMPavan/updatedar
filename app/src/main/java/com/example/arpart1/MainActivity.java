@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.arpart1.AlerDialogs.ImageAlertDialog;
+import com.example.arpart1.AlerDialogs.ThreeDModelAlertDialog;
 import com.example.arpart1.AlerDialogs.TextAlertDialog;
 import com.example.arpart1.Utils.StaticData;
 import com.example.arpart1.databinding.ActivityMainBinding;
@@ -39,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
     ImageAlertDialog imageAlertDialog;
     TextAlertDialog textAlertDialog;
+    ThreeDModelAlertDialog threeDModelAlertDialog;
+
 
     ArFragment arFragment;
     int arFragmentId = R.id.ux_ar_fragment;
@@ -84,8 +87,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        imageAlertDialog = new ImageAlertDialog(this);
-        textAlertDialog = new TextAlertDialog(this);
+        imageAlertDialog=new ImageAlertDialog(this);
+        textAlertDialog=new TextAlertDialog(this);
+        threeDModelAlertDialog=new ThreeDModelAlertDialog(this);
         setListeners();
         setArFragment();
 
@@ -151,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
     private void setListeners() {
 
         binding.Cl3dModel.setOnClickListener(view -> {
+            threeDModelAlertDialog.createAlertDialog();
 
         });
         binding.ClImageModel.setOnClickListener(view -> {

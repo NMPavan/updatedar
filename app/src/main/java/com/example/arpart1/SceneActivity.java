@@ -6,17 +6,17 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
-import android.support.v7.app.AppCompatActivity;
-import android.view.Gravity;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.support.design.widget.Snackbar;
 
 import com.example.arpart1.Models.AddedObject;
 import com.example.arpart1.Utils.StaticData;
@@ -24,6 +24,8 @@ import com.google.ar.core.Anchor;
 import com.google.ar.core.HitResult;
 import com.google.ar.core.Plane;
 import com.google.ar.sceneform.AnchorNode;
+import com.google.ar.sceneform.HitTestResult;
+import com.google.ar.sceneform.Node;
 import com.google.ar.sceneform.collision.Box;
 import com.google.ar.sceneform.math.Quaternion;
 import com.google.ar.sceneform.math.Vector3;
@@ -39,15 +41,22 @@ import com.google.ar.sceneform.ux.TransformableNode;
 public class SceneActivity extends AppCompatActivity {
     private static final String TAG = SceneActivity.class.getSimpleName();
     private static final double MIN_OPENGL_VERSION = 3.0;
-    private static final double THRESHOLD = 1.5;
+    private static final float THRESHOLD = 1.5f;
     int i = 0;
-    private ArFragment arFragment;
-    private ModelRenderable andyRenderable;
     TextView textPlane;
     int select = 1;
-
-
     AddedObjectsAdapter addedObjectsAdapter;
+    private ArFragment arFragment;
+    private ModelRenderable andyRenderable;
+
+    /**
+     * Returns false and displays an error message if Sceneform can not run, true if Sceneform can run
+     * on this device.
+     *
+     * <p>Sceneform requires Android N on the device as well as OpenGL 3.0 capabilities.
+     *
+     * <p>Finishes the activity if Sceneform can not run
+     */
 
     @Override
     @SuppressWarnings({"AndroidApiChecker", "FutureReturnValueIgnored"})
@@ -68,6 +77,7 @@ public class SceneActivity extends AppCompatActivity {
 
 
     }
+
 
     private ViewRenderable IntializeViewRenderable() {
         final ViewRenderable[] renderable = {null};
@@ -128,7 +138,7 @@ public class SceneActivity extends AppCompatActivity {
                             andy.select();
 
                             try {
-                                addName(anchorNode, andy, andyRenderable);
+//                                addName(anchorNode, andy, andyRenderable);
                             } catch (Exception e) {
                                 e.printStackTrace();
                                 snackBarShow(e.getLocalizedMessage());
@@ -137,6 +147,36 @@ public class SceneActivity extends AppCompatActivity {
                             try {
                                 StaticData.addedObjects.add(new AddedObject(anchorNode, i));
                                 addedObjectsAdapter.notifyDataSetChanged();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                                snackBarShow(e.getLocalizedMessage());
+
+                            }
+                            try {
+                                anchorNode.setOnTapListener(new Node.OnTapListener() {
+                                    @Override
+                                    public void onTap(HitTestResult hitTestResult, MotionEvent motionEvent) {
+    //                               handleOnTouch(hitTestResult,motionEvent);
+                                        if (hitTestResult!=null && hitTestResult.getNode() != null) {
+                                            Log.d(TAG, "handleOnTouch hitTestResult.getNode() != null");
+                                            Node hitNode = hitTestResult.getNode();
+                                            try {
+                                                arFragment.getArSceneView().getScene().removeChild(hitNode);
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                                snackBarShow(e.getLocalizedMessage());
+
+                                            }
+                                            try {
+                                                hitNode.setParent(null);
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                                snackBarShow(e.getLocalizedMessage());
+
+                                            }
+                                        }
+                                    }
+                                });
                             } catch (Exception e) {
                                 e.printStackTrace();
                                 snackBarShow(e.getLocalizedMessage());
@@ -328,6 +368,8 @@ public class SceneActivity extends AppCompatActivity {
         }
     }
 
+
+
     /**
      * Returns false and displays an error message if Sceneform can not run, true if Sceneform can run
      * on this device.
@@ -358,6 +400,34 @@ public class SceneActivity extends AppCompatActivity {
     }
 
 
+
+    private void handleOnTouch(HitTestResult hitTestResult, MotionEvent motionEvent) {
+        Log.d(TAG, "handleOnTouch");
+        // First call ArFragment's listener to handle TransformableNodes.
+        arFragment.onPeekTouch(hitTestResult, motionEvent);
+
+        //We are only interested in the ACTION_UP events - anything else just return
+        if (motionEvent.getAction() != MotionEvent.ACTION_UP) {
+            return;
+        }
+
+        // Check for touching a Sceneform node
+        if (hitTestResult.getNode() != null) {
+            Log.d(TAG, "handleOnTouch hitTestResult.getNode() != null");
+            Node hitNode = hitTestResult.getNode();
+
+
+            if (hitNode.getRenderable() == andyRenderable) {
+                Toast.makeText(SceneActivity.this, "We've hit Andy!!", Toast.LENGTH_SHORT).show();
+                arFragment.getArSceneView().getScene().removeChild(hitNode);
+                hitNode.setParent(null);
+                hitNode = null;
+            }
+        }
+
+
+    }
 }
+
 
 
