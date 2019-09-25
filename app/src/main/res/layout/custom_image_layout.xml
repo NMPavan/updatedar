@@ -5,12 +5,10 @@
     android:layout_width="200dp"
     android:layout_height="wrap_content"
     android:elevation="7dp"
-    android:background="@drawable/card_background"
-    android:layout_margin="10dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_margin="10dp">
 
     <LinearLayout
-        android:layout_margin="10dp"
+        android:layout_margin="5dp"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -25,6 +23,7 @@
         android:id="@+id/recyclerText"
         style="@style/select_image_Style"
         android:padding="5dp"
+        android:textColor="@android:color/black"
         />
 
     </LinearLayout>
