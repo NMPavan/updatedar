@@ -21,8 +21,8 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:layout_above="@+id/selectior_layout"
-            android:background="@color/gray" />
+            android:layout_above="@id/selectior_layout"
+            android:background="@color/white" />
 
         <LinearLayout
             android:id="@+id/selectior_layout"

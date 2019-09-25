@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">AR PART 1</string>
+    <string name="select_image">Select image from Gallery</string>
+    <string name="ok">Ok</string>
+    <string name="show_hint">Enter Text to show on plane</string>
 </resources>
