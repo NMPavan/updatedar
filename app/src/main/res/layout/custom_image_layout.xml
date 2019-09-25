@@ -16,7 +16,8 @@
     <ImageView
         android:id="@+id/recyclerImage"
         android:layout_width="match_parent"
-        android:layout_height="150dp" />
+        android:layout_height="150dp"
+        android:scaleType="centerInside"/>
 
     <TextView
         android:id="@+id/recyclerText"
