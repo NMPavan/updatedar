@@ -34,6 +34,7 @@ public class ImageAlertDialog {
     ArrayList<Images> dataList = new ArrayList<>();
 
     public ImageAlertDialog(Context context) {
+
         this.context = context;
     }
 
