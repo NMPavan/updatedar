@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/Model_show"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2"
+        android:layout_below="@id/Model_show"
+        android:layout_margin="10dp"
+        android:orientation="horizontal">
+
+
+        <Button
+            android:id="@+id/cancelSelectedImagemodel"
+            style="@style/image_alert_dialog_BTN"
+            android:text="@string/__arcore_cancel"
+            android:background="@android:color/holo_red_dark"
+            />
+
+        <Button
+            android:id="@+id/okSelectedImagemodel"
+            style="@style/image_alert_dialog_BTN"
+            android:text="@string/ok"
+            android:background="@android:color/holo_green_dark"
+            />
+
+
+    </LinearLayout>
+
+</RelativeLayout>
+
+
+
+</layout>
