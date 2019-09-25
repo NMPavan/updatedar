@@ -36,7 +36,7 @@ public class ThreeDModelAlertDialog {
         builder.setView(binding.getRoot());
 
 
-        final AlertDialog dialog = builder.create();
+       dialog = builder.create();
 
         setRecycler();
 
