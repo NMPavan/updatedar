@@ -11,6 +11,7 @@ public class StaticData {
     public static ArrayList<AddedObject> addedObjects = new ArrayList<AddedObject>();
     public static int selectedFinalImage;
     public static String selectedItemName;
+    public  static  String selectedStringForModel;
 
     public static void showSnackBar(View context, String data) {
         Snackbar.make(context, data, Snackbar.LENGTH_SHORT).show();

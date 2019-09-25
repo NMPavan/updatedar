@@ -52,6 +52,7 @@
                     android:id="@+id/okSelectedImage"
                     style="@style/image_alert_dialog_BTN"
                     android:text="@string/ok"
+                    android:enabled="false"
                     android:background="@android:color/holo_green_dark"
                     />
 
