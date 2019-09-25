@@ -20,18 +20,13 @@ public class AddedObjectsAdapter extends RecyclerView.Adapter<AddedObjectsAdapte
     Context context;
     private OnItemClickListener itemClickListener;
 
-    public interface OnItemClickListener {
-
-        void onItemClick(int position);
+    public AddedObjectsAdapter(List<AddedObject> addedObjects, Context context) {
+        this.addedObjects = addedObjects;
+        this.context = context;
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
         itemClickListener = listener;
-    }
-
-    public AddedObjectsAdapter(List<AddedObject> addedObjects, Context context) {
-        this.addedObjects = addedObjects;
-        this.context = context;
     }
 
     @NonNull
@@ -63,6 +58,11 @@ public class AddedObjectsAdapter extends RecyclerView.Adapter<AddedObjectsAdapte
     @Override
     public int getItemCount() {
         return addedObjects.size();
+    }
+
+    public interface OnItemClickListener {
+
+        void onItemClick(int position);
     }
 
     public class RewardViewHolder extends RecyclerView.ViewHolder {

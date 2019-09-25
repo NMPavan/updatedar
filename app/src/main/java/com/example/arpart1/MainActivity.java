@@ -2,9 +2,9 @@ package com.example.arpart1;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
 import com.example.arpart1.AlerDialogs.ImageAlertDialog;
 import com.example.arpart1.AlerDialogs.TextAlertDialog;
@@ -22,8 +22,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        imageAlertDialog=new ImageAlertDialog(this);
-        textAlertDialog=new TextAlertDialog(this);
+        imageAlertDialog = new ImageAlertDialog(this);
+        textAlertDialog = new TextAlertDialog(this);
         setListeners();
 
 
@@ -44,20 +44,17 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
     }
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode== ImageAlertDialog.PICK_IMAGE && resultCode==RESULT_OK && data!=null)
-        {
+        if (requestCode == ImageAlertDialog.PICK_IMAGE && resultCode == RESULT_OK && data != null) {
             imageAlertDialog.handleIntentResponse(data);
-            StaticData.showSnackBar(binding.root,"User Selected the image");
+            StaticData.showSnackBar(binding.root, "User Selected the image");
         }
-        if (requestCode==ImageAlertDialog.PICK_IMAGE && resultCode==RESULT_CANCELED)
-        {
-            StaticData.showSnackBar(binding.root,"User cancelled the image");
+        if (requestCode == ImageAlertDialog.PICK_IMAGE && resultCode == RESULT_CANCELED) {
+            StaticData.showSnackBar(binding.root, "User cancelled the image");
         }
 
     }

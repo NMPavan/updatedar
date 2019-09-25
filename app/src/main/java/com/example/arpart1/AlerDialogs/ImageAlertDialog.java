@@ -7,18 +7,16 @@ import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
-
 import android.widget.Toast;
 
 import com.example.arpart1.Adapter.ImageAdapter;
 import com.example.arpart1.MainActivity;
 import com.example.arpart1.Models.Images;
 import com.example.arpart1.R;
-
-
+import com.example.arpart1.Utils.StaticData;
 import com.example.arpart1.databinding.ImageAlertDialogBinding;
 
 import java.io.IOException;
@@ -26,54 +24,66 @@ import java.util.ArrayList;
 
 
 public class ImageAlertDialog {
+    public static int PICK_IMAGE = 1;
     Context context;
-    public  static  int PICK_IMAGE=1;
     ImageAlertDialogBinding binding;
+    AlertDialog dialog;
 
     ImageAdapter imageAdapter;
     Bitmap imageBitmap;
-    ArrayList<Images> dataList=new ArrayList<>();
+    ArrayList<Images> dataList = new ArrayList<>();
 
     public ImageAlertDialog(Context context) {
         this.context = context;
     }
 
-    public void createAlertDialog()
-    {
-
-
-
-        AlertDialog.Builder builder= null;
+    public void createAlertDialog() {
+        AlertDialog.Builder builder = null;
         try {
             builder = new AlertDialog.Builder(context);
         } catch (Exception e) {
             e.printStackTrace();
-
             Toast.makeText(context, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
         }
-        binding=DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.image_alert_dialog,null,false);
-
+        binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.image_alert_dialog, null, false);
         builder.setView(binding.getRoot());
+        dialog = builder.create();
 
-        binding.selctImageTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                selectImageFromGallery();
-            }
-        });
+        setRecycler();
 
+
+        setListener();
+
+
+        dialog.show();
+
+
+    }
+
+    private void setRecycler() {
         binding.selectImageRecycler.setHasFixedSize(true);
-        binding.selectImageRecycler.setLayoutManager(new GridLayoutManager(context,2));
+        binding.selectImageRecycler.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
 
         dataList.clear();
 
         addData();
 
-        imageAdapter=new ImageAdapter(dataList,context);
+        imageAdapter = new ImageAdapter(dataList, context);
 
         binding.selectImageRecycler.setAdapter(imageAdapter);
+    }
 
-        final AlertDialog dialog=builder.create();
+    private void setListener() {
+
+        imageAdapter.setOnItemClickListener(new ImageAdapter.OnItemClickListener() {
+            @Override
+            public void OnClick(int pos, int image, String text) {
+                StaticData.selectedFinalImage = image;
+                StaticData.selectedItemName = text;
+
+                binding.selectedImage.setImageResource(StaticData.selectedFinalImage);
+            }
+        });
 
         binding.cancelSelectedImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,34 +99,25 @@ public class ImageAlertDialog {
             }
         });
 
-
-        dialog.show();
-
-
-
-
+        binding.selctImageTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectImageFromGallery();
+            }
+        });
     }
 
 
-
-    private void addData()
-    {
-        dataList.add(new Images(R.drawable.chair_thumb,"Chair"));
-        dataList.add(new Images(R.drawable.images,"Table"));
-        dataList.add(new Images(R.drawable.fox,"Fox"));
+    private void addData() {
+        dataList.add(new Images(R.drawable.chair_thumb, "Chair"));
+        dataList.add(new Images(R.drawable.images, "Table"));
+        dataList.add(new Images(R.drawable.fox, "Fox"));
     }
 
-    public void handleIntentResponse(Intent data)
-    {
-        if (data.getExtras()!=null)
-        {
-            Bitmap imageBitmap=data.getExtras().getParcelable("data");
-            Toast.makeText(context, "Bitmap printed", Toast.LENGTH_SHORT).show();
+    public void handleIntentResponse(Intent data) {
 
-        }
 
-        if (data.getData()!=null)
-        {
+        if (data.getData() != null) {
             Uri uri = data.getData();
 
             Toast.makeText(context, uri.toString(), Toast.LENGTH_SHORT).show();
@@ -133,18 +134,13 @@ public class ImageAlertDialog {
         }
     }
 
-    private void selectImageFromGallery()
-    {
-        Intent galleryIntent=new Intent();
+    private void selectImageFromGallery() {
+        Intent galleryIntent = new Intent();
         galleryIntent.setType("image/*");
         galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
-        ((MainActivity)context).startActivityForResult(galleryIntent,PICK_IMAGE);
+        ((MainActivity) context).startActivityForResult(galleryIntent, PICK_IMAGE);
 
     }
-
-
-
-
 
 
 }
