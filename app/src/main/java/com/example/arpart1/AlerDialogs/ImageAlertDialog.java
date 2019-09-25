@@ -5,17 +5,23 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
+
+import android.widget.Toast;
 
 import com.example.arpart1.Adapter.ImageAdapter;
 import com.example.arpart1.MainActivity;
 import com.example.arpart1.Models.Images;
 import com.example.arpart1.R;
 
+
 import com.example.arpart1.databinding.ImageAlertDialogBinding;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -35,9 +41,16 @@ public class ImageAlertDialog {
     public void createAlertDialog()
     {
 
-        checkImage(imageBitmap);
 
-        AlertDialog.Builder builder=new AlertDialog.Builder(context);
+
+        AlertDialog.Builder builder= null;
+        try {
+            builder = new AlertDialog.Builder(context);
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            Toast.makeText(context, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+        }
         binding=DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.image_alert_dialog,null,false);
 
         builder.setView(binding.getRoot());
@@ -51,6 +64,8 @@ public class ImageAlertDialog {
 
         binding.selectImageRecycler.setHasFixedSize(true);
         binding.selectImageRecycler.setLayoutManager(new GridLayoutManager(context,2));
+
+        dataList.clear();
 
         addData();
 
@@ -82,17 +97,7 @@ public class ImageAlertDialog {
 
     }
 
-    private void checkImage(Bitmap imageBitmap)
-    {
-        if (imageBitmap!=null)
-        {
-            binding.selectedImage.setVisibility(View.VISIBLE);
-        }
-        else
-        {
-            binding.selectedImage.setVisibility(View.GONE);
-        }
-    }
+
 
     private void addData()
     {
@@ -103,10 +108,29 @@ public class ImageAlertDialog {
 
     public void handleIntentResponse(Intent data)
     {
-        imageBitmap=data.getExtras().getParcelable("data");
-        binding.selectedImage.setImageBitmap(imageBitmap);
+        if (data.getExtras()!=null)
+        {
+            Bitmap imageBitmap=data.getExtras().getParcelable("data");
+            Toast.makeText(context, "Bitmap printed", Toast.LENGTH_SHORT).show();
+
+        }
+
+        if (data.getData()!=null)
+        {
+            Uri uri = data.getData();
+
+            Toast.makeText(context, uri.toString(), Toast.LENGTH_SHORT).show();
+
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
+                // Log.d(TAG, String.valueOf(bitmap));
 
 
+                binding.selectedImage.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void selectImageFromGallery()

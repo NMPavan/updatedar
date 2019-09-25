@@ -7,19 +7,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.arpart1.AlerDialogs.ImageAlertDialog;
+import com.example.arpart1.AlerDialogs.TextAlertDialog;
 import com.example.arpart1.Utils.StaticData;
 import com.example.arpart1.databinding.ActivityMainBinding;
 
 
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
-    ImageAlertDialog imageAlertDialog=new ImageAlertDialog(getApplicationContext());
+    ImageAlertDialog imageAlertDialog;
+    TextAlertDialog textAlertDialog;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        imageAlertDialog=new ImageAlertDialog(this);
+        textAlertDialog=new TextAlertDialog(this);
         setListeners();
 
 
@@ -36,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
         });
         binding.ClTextModel.setOnClickListener(view -> {
-
+            textAlertDialog.createAlertDialog();
         });
 
 
@@ -49,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode== ImageAlertDialog.PICK_IMAGE && resultCode==RESULT_OK && data!=null)
         {
             imageAlertDialog.handleIntentResponse(data);
+            StaticData.showSnackBar(binding.root,"User Selected the image");
         }
         if (requestCode==ImageAlertDialog.PICK_IMAGE && resultCode==RESULT_CANCELED)
         {
