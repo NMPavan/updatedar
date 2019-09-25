@@ -1,6 +1,6 @@
 package com.example.arpart1.Utils;
 
-import com.example.arpart1.AddedObject;
+import com.example.arpart1.Models.AddedObject;
 
 import java.util.ArrayList;
 

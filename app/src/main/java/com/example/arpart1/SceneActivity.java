@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.support.design.widget.Snackbar;
 
+import com.example.arpart1.Models.AddedObject;
 import com.example.arpart1.Utils.StaticData;
 import com.google.ar.core.Anchor;
 import com.google.ar.core.HitResult;

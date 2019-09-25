@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:layout_above="@+id/selectior_layout"
-            android:background="@color/white" />
+            android:background="@color/gray" />
 
         <LinearLayout
             android:id="@+id/selectior_layout"

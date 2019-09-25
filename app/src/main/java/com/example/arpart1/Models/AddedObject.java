@@ -1,4 +1,4 @@
-package com.example.arpart1;
+package com.example.arpart1.Models;
 
 import com.google.ar.sceneform.AnchorNode;
 
