@@ -18,6 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.support.design.widget.Snackbar;
 
+import com.example.arpart1.Models.AddedObject;
+import com.example.arpart1.Utils.StaticData;
 import com.google.ar.core.Anchor;
 import com.google.ar.core.HitResult;
 import com.google.ar.core.Plane;
@@ -122,7 +124,7 @@ public class SceneActivity extends AppCompatActivity {
                             }
 
                             try {
-                                Utils.addedObjects.add(new AddedObject(anchorNode, i));
+                                StaticData.addedObjects.add(new AddedObject(anchorNode, i));
                                 addedObjectsAdapter.notifyDataSetChanged();
                             } catch (Exception e) {
                                 e.printStackTrace();
@@ -227,14 +229,14 @@ public class SceneActivity extends AppCompatActivity {
         rewardRecycler.setLayoutManager(new LinearLayoutManager(this,
                 LinearLayoutManager.HORIZONTAL, true));
 
-        addedObjectsAdapter = new AddedObjectsAdapter(Utils.addedObjects, this);
+        addedObjectsAdapter = new AddedObjectsAdapter(StaticData.addedObjects, this);
         rewardRecycler.setAdapter(addedObjectsAdapter);
         addedObjectsAdapter.setOnItemClickListener(new AddedObjectsAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
                 try {
-                    removeAnchorNode(Utils.addedObjects.get(position).getAnchorNode());
-                    Utils.addedObjects.remove(position);
+                    removeAnchorNode(StaticData.addedObjects.get(position).getAnchorNode());
+                    StaticData.addedObjects.remove(position);
                     addedObjectsAdapter.notifyDataSetChanged();
                 } catch (Exception e) {
                     e.printStackTrace();

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/select_image_Style"
+                android:id="@+id/selctImageTextView"
+                android:text="@string/select_image"
+                />
+
+            <ImageView
+                android:id="@+id/selectedImage"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="centerInside"
+                />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/selectImageRecycler"
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="2"
+                android:layout_margin="10dp"
+                android:orientation="horizontal">
+
+
+                <Button
+                    android:id="@+id/cancelSelectedImage"
+                    style="@style/image_alert_dialog_BTN"
+                    android:text="@string/__arcore_cancel"
+                    android:background="@android:color/holo_red_dark"
+                    />
+
+                <Button
+                    android:id="@+id/okSelectedImage"
+                    style="@style/image_alert_dialog_BTN"
+                    android:text="@string/ok"
+                    android:background="@android:color/holo_green_dark"
+                    />
+
+
+            </LinearLayout>
+
+
+
+
+        </LinearLayout>
+
+    </ScrollView>
+</layout>
