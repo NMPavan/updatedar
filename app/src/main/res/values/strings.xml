@@ -3,4 +3,7 @@
     <string name="select_image">Select image from Gallery</string>
     <string name="ok">Ok</string>
     <string name="show_hint">Enter Text to show on plane</string>
+    <string name="_3d_model">3D Model</string>
+    <string name="image_model">Image</string>
+    <string name="text_model">Text</string>
 </resources>

@@ -15,8 +15,8 @@ import com.example.arpart1.databinding.TextAlertDialogBinding;
 
 public class TextAlertDialog {
 
-    Context context;
-    TextAlertDialogBinding binding;
+    private Context context;
+    private TextAlertDialogBinding binding;
     AlertDialog dialog;
     private TextWatcher listener = new TextWatcher() {
         @Override

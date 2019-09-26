@@ -35,27 +35,48 @@
 
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/Cl_3d_model"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
+
+                <TextView
+                    style="@style/selector_options_text"
+                    android:text="@string/_3d_model"
+                    tools:ignore="MissingConstraints" />
 
             </android.support.constraint.ConstraintLayout>
 
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/Cl_image_model"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="horizontal" />
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/selector_options_text"
+                    android:text="@string/image_model"
+                    tools:ignore="MissingConstraints" />
+
+
+            </android.support.constraint.ConstraintLayout>
 
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/Cl_text_model"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="horizontal" />
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/selector_options_text"
+                    android:text="@string/text_model"
+                    tools:ignore="MissingConstraints" />
+
+
+            </android.support.constraint.ConstraintLayout>
 
 
 

@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.arpart1.Adapter.ImageAdapter;
 import com.example.arpart1.MainActivity;
+import com.example.arpart1.Models.ArProduct;
 import com.example.arpart1.Models.Images;
 import com.example.arpart1.R;
 import com.example.arpart1.Utils.StaticData;
@@ -22,16 +23,18 @@ import com.example.arpart1.databinding.ImageAlertDialogBinding;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static com.example.arpart1.Utils.StaticData.arProductToPlace;
+
 
 public class ImageAlertDialog {
     public static int PICK_IMAGE = 1;
-    Context context;
-    ImageAlertDialogBinding binding;
-    AlertDialog dialog;
+    private Context context;
+    private ImageAlertDialogBinding binding;
+    private AlertDialog dialog;
 
-    ImageAdapter imageAdapter;
-    Bitmap imageBitmap;
-    ArrayList<Images> dataList = new ArrayList<>();
+    private ImageAdapter imageAdapter;
+    Uri uri;
+    private ArrayList<Images> dataList = new ArrayList<>();
 
     public ImageAlertDialog(Context context) {
 
@@ -82,6 +85,7 @@ public class ImageAlertDialog {
                 StaticData.selectedFinalImage = image;
                 StaticData.selectedItemName = text;
 
+
                 binding.selectedImage.setImageResource(StaticData.selectedFinalImage);
             }
         });
@@ -96,6 +100,11 @@ public class ImageAlertDialog {
         binding.okSelectedImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (uri != null) {
+                    arProductToPlace = new ArProduct(0, ArProduct.ArProductType.IMAGE_MODEL);
+                    arProductToPlace.setUri(uri);
+                }
+
                 dialog.dismiss();
             }
         });
@@ -119,7 +128,7 @@ public class ImageAlertDialog {
 
 
         if (data.getData() != null) {
-            Uri uri = data.getData();
+            uri = data.getData();
 
             Toast.makeText(context, uri.toString(), Toast.LENGTH_SHORT).show();
 

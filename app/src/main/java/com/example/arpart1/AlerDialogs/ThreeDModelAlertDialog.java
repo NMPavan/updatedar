@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.example.arpart1.Adapter.ThreeModelAdapter;
 import com.example.arpart1.Models.ImageDetailModel;
+import com.example.arpart1.Models.Images;
 import com.example.arpart1.R;
 import com.example.arpart1.databinding.ModelDisplayBinding;
 
@@ -70,6 +71,8 @@ public class ThreeDModelAlertDialog {
                 dialog.dismiss();
             }
         });
+
+
 
     }
 
