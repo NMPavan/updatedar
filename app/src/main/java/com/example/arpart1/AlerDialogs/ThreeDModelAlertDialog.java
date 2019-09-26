@@ -4,10 +4,11 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.example.arpart1.Adapter.ThreeDModelAdapter;
+import com.example.arpart1.Adapter.ThreeModelAdapter;
 import com.example.arpart1.Models.ImageDetailModel;
 import com.example.arpart1.Models.Images;
 import com.example.arpart1.R;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 
 public class ThreeDModelAlertDialog {
     Context context;
-    ThreeDModelAdapter threeDModelAdapter;
+    ThreeModelAdapter threeModelAdapter;
     AlertDialog dialog;
 
 
@@ -47,6 +48,13 @@ public class ThreeDModelAlertDialog {
 
     private void setListener() {
 
+        threeModelAdapter.setOnItemClickListener(new ThreeModelAdapter.OnItemClickListener() {
+            @Override
+            public void OnClick(int pos, int image) {
+
+            }
+        });
+
 
 
         binding.cancelSelectedImagemodel.setOnClickListener(new View.OnClickListener() {
@@ -70,21 +78,22 @@ public class ThreeDModelAlertDialog {
 
     private void setRecycler() {
         binding.ModelShow.setHasFixedSize(true);
-        binding.ModelShow.setLayoutManager(new GridLayoutManager(context, 2));
+        binding.ModelShow.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+
 
         modelImage.clear();
         addData();
 
 
-        threeDModelAdapter = new ThreeDModelAdapter(modelImage, context);
+        threeModelAdapter = new ThreeModelAdapter(modelImage, context);
 
-        binding.ModelShow.setAdapter(threeDModelAdapter);
+        binding.ModelShow.setAdapter(threeModelAdapter);
     }
 
     private void addData() {
-        modelImage.add(new ImageDetailModel(R.drawable.chair_thumb));
-        modelImage.add(new ImageDetailModel(R.drawable.images));
-        modelImage.add(new ImageDetailModel(R.drawable.fox));
+        modelImage.add(new ImageDetailModel(R.drawable.chair_thumb,R.raw.chair));
+        modelImage.add(new ImageDetailModel(R.drawable.images,R.raw.andy));
+        modelImage.add(new ImageDetailModel(R.drawable.fox,R.raw.table));
 
     }
 
