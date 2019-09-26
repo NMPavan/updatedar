@@ -7,6 +7,10 @@ public class ArProduct {
 
     private Uri uri;
 
+    public Uri getUri() {
+        return uri;
+    }
+
     public enum ArProductType {
         THREED_MODEL,
         IMAGE_MODEL,

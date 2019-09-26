@@ -128,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void placeModel(HitResult hitResult, Plane plane, MotionEvent motionEvent) {
         AnchorNode anchorNode = getAnchorNode(hitResult.createAnchor());
+        if(anchorNode!=null)
         createTransformableNode(anchorNode);
 
     }

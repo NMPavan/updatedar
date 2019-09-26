@@ -9,17 +9,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.arpart1.Models.ImageDetailModel;
-import com.example.arpart1.Models.Images;
 import com.example.arpart1.R;
 
 import java.util.ArrayList;
 
-public class ImageModel extends RecyclerView.Adapter<ImageModel.ImageModelViewHolder> {
+public class ThreeDModelAdapter extends RecyclerView.Adapter<ThreeDModelAdapter.ImageModelViewHolder> {
       //List<Imagesmodels> dataList;
         Context context;
     private ArrayList<ImageDetailModel> modelImage;
 
-    public ImageModel(ArrayList<ImageDetailModel> modelImage, Context context) {
+    public ThreeDModelAdapter(ArrayList<ImageDetailModel> modelImage, Context context) {
             //this.dataList = dataList;
             this.context = context;
             this.modelImage=modelImage;
@@ -29,9 +28,9 @@ public class ImageModel extends RecyclerView.Adapter<ImageModel.ImageModelViewHo
 
     @NonNull
         @Override
-        public ImageModel.ImageModelViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        public ThreeDModelAdapter.ImageModelViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
             View view= LayoutInflater.from(context).inflate(R.layout.model_detail,viewGroup,false);
-            return new ImageModel.ImageModelViewHolder(view);
+            return new ThreeDModelAdapter.ImageModelViewHolder(view);
         }
 
         @Override

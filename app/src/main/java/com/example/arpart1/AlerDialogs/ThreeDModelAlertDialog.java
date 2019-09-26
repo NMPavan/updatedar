@@ -7,10 +7,8 @@ import android.support.v7.widget.GridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.example.arpart1.Adapter.ImageAdapter;
-import com.example.arpart1.Adapter.ImageModel;
+import com.example.arpart1.Adapter.ThreeDModelAdapter;
 import com.example.arpart1.Models.ImageDetailModel;
-import com.example.arpart1.Models.Images;
 import com.example.arpart1.R;
 import com.example.arpart1.databinding.ModelDisplayBinding;
 
@@ -18,7 +16,7 @@ import java.util.ArrayList;
 
 public class ThreeDModelAlertDialog {
     Context context;
-    ImageModel imageModel;
+    ThreeDModelAdapter threeDModelAdapter;
     AlertDialog dialog;
 
 
@@ -34,7 +32,6 @@ public class ThreeDModelAlertDialog {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.model_display, null, false);
         builder.setView(binding.getRoot());
-
 
         final AlertDialog dialog = builder.create();
 
@@ -65,6 +62,8 @@ public class ThreeDModelAlertDialog {
             }
         });
 
+
+
     }
 
     private void setRecycler() {
@@ -75,9 +74,9 @@ public class ThreeDModelAlertDialog {
         addData();
 
 
-        imageModel = new ImageModel(modelImage, context);
+        threeDModelAdapter = new ThreeDModelAdapter(modelImage, context);
 
-        binding.ModelShow.setAdapter(imageModel);
+        binding.ModelShow.setAdapter(threeDModelAdapter);
     }
 
     private void addData() {
