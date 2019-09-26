@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ImageView
+        android:id="@+id/selectedImageModel"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        tools:src="@drawable/chair_thumb"/>
+
+    <TextView
+        android:id="@+id/selectedTextModel"
+        style="@style/select_image_Style"
+        tools:text="shubham"
+        android:textColor="@android:color/holo_red_dark"
+        android:textAllCaps="false"/>
+
+
+</RelativeLayout>
