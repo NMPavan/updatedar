@@ -33,7 +33,8 @@ public class ThreeDModelAlertDialog {
         binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.model_display, null, false);
         builder.setView(binding.getRoot());
 
-        final AlertDialog dialog = builder.create();
+
+       dialog = builder.create();
 
         setRecycler();
 
