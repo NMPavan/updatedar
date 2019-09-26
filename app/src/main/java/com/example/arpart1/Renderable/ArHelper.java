@@ -10,7 +10,10 @@ import com.google.ar.core.Anchor;
 import com.google.ar.core.HitResult;
 import com.google.ar.core.Plane;
 import com.google.ar.sceneform.AnchorNode;
+import com.google.ar.sceneform.HitTestResult;
+import com.google.ar.sceneform.Node;
 import com.google.ar.sceneform.math.Vector3;
+import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
 
@@ -64,8 +67,16 @@ public class ArHelper {
         andy.setParent(anchorNode);
         andy.getTranslationController().setEnabled(false);//disble drag place interaction
         placeRenderable(andy);
-        andy.select();
+//        andy.select();
         setError("MODEL PLACED");
+
+        anchorNode.setOnTapListener(new Node.OnTapListener() {
+            @Override
+            public void onTap(HitTestResult hitTestResult, MotionEvent motionEvent) {
+                setError("MODEL tapped");
+
+            }
+        });
 
 
     }
@@ -75,12 +86,18 @@ public class ArHelper {
             switch (StaticData.arProductToPlace.getArProductType()) {
                 case IMAGE_MODEL:
                     ViewRenderableImage viewRenderableImage = new ViewRenderableImage(context, arFragment,
-                            StaticData.arProductToPlace.getUri());
+                            StaticData.arProductToPlace.getUri(),andy);
                     viewRenderableImage.createModel();
-                    andy.setRenderable(viewRenderableImage.getViewRenderable());
+//                    andy.setRenderable(viewRenderableImage.getViewRenderable());
                     setError("MODEL rendered");
                     break;
                 case THREED_MODEL:
+                    ModelRenderable3D modelRenderable=new ModelRenderable3D(context, arFragment,
+                           R.raw.andy,andy);
+                    modelRenderable.createModel();
+//                    andy.setRenderable(modelRenderable.getViewRenderable());
+                    setError("MODEL rendered");
+
 
                     break;
                 case TEXT_MODEL:

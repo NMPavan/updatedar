@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.example.arpart1.AlerDialogs.ImageAlertDialog;
 import com.example.arpart1.AlerDialogs.ThreeDModelAlertDialog;
 import com.example.arpart1.AlerDialogs.TextAlertDialog;
+import com.example.arpart1.Models.ArProduct;
 import com.example.arpart1.Renderable.ArHelper;
 import com.example.arpart1.Utils.StaticData;
 import com.example.arpart1.databinding.ActivityMainBinding;
@@ -31,6 +32,8 @@ import com.google.ar.sceneform.math.Vector3;
 import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.BaseArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
+
+import static com.example.arpart1.Utils.StaticData.arProductToPlace;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -115,6 +118,8 @@ public class MainActivity extends AppCompatActivity {
 
         binding.Cl3dModel.setOnClickListener(view -> {
             threeDModelAlertDialog.createAlertDialog();
+            //todo: for testing
+            arProductToPlace = new ArProduct(0, ArProduct.ArProductType.THREED_MODEL);
 
         });
         binding.ClImageModel.setOnClickListener(view -> {

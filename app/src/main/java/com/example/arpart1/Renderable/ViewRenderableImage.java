@@ -12,12 +12,14 @@ import com.google.ar.core.Anchor;
 import com.google.ar.sceneform.AnchorNode;
 import com.google.ar.sceneform.rendering.ViewRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
+import com.google.ar.sceneform.ux.TransformableNode;
 
 public class ViewRenderableImage
 {
     Context context;
     ArFragment arFragment;
     Uri imageUri;
+    private TransformableNode node;
 
     public ViewRenderable getViewRenderable() {
         return viewRenderable;
@@ -25,10 +27,11 @@ public class ViewRenderableImage
 
     ViewRenderable viewRenderable;
 
-    public ViewRenderableImage(Context context, ArFragment arFragment, Uri imageUri) {
+    public ViewRenderableImage(Context context, ArFragment arFragment, Uri imageUri, TransformableNode node) {
         this.context = context;
         this.arFragment = arFragment;
         this.imageUri = imageUri;
+        this.node = node;
     }
 
 
@@ -42,6 +45,9 @@ public class ViewRenderableImage
                     ImageView selectedImage=view.findViewById(R.id.selectedImageModel);
                     selectedImage.setImageURI(imageUri);
                     this.viewRenderable=viewRenderable;
+                    node.setRenderable(viewRenderable);
+                    node.select();
+
                 })    .exceptionally(
                 throwable -> {
                     Toast toast =
@@ -50,6 +56,7 @@ public class ViewRenderableImage
                     toast.show();
                     return null;
                 });
+
     }
 
     private void placeModel(ViewRenderable viewRenderable, Anchor anchor)
