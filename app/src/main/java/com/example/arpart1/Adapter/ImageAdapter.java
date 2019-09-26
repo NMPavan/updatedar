@@ -58,11 +58,6 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
         return dataList.size();
     }
 
-    public interface OnItemClickListener {
-
-
-        void OnClick(int pos, int image, String text);
-    }
 
     public class ImageViewHolder extends RecyclerView.ViewHolder {
         ImageView recyclerImage;
@@ -94,4 +89,10 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
 
         }
     }
+
+    public interface OnItemClickListener {
+
+        void OnClick(int pos, int image, String text);
+    }
+
 }

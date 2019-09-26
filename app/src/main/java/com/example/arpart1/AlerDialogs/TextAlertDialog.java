@@ -9,9 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.arpart1.Models.ArProduct;
 import com.example.arpart1.R;
 import com.example.arpart1.Utils.StaticData;
 import com.example.arpart1.databinding.TextAlertDialogBinding;
+
+import static com.example.arpart1.Utils.StaticData.arProductToPlace;
 
 public class TextAlertDialog {
 
@@ -33,8 +36,10 @@ public class TextAlertDialog {
         public void afterTextChanged(Editable editable) {
             if (binding.textForPlane.getText().toString().trim().length() == 0) {
                 binding.okTextDialog.setEnabled(false);
+                binding.okTextDialog.setBackgroundColor(context.getResources().getColor(R.color.disabled_button));
+
             } else {
-                binding.okTextDialog.setEnabled(false);
+                binding.okTextDialog.setEnabled(true);
                 binding.okTextDialog.setBackgroundColor(0xFF006400);
             }
         }
@@ -75,6 +80,10 @@ public class TextAlertDialog {
                     Toast.makeText(context, "Please write something to show", Toast.LENGTH_SHORT).show();
                 } else {
                     StaticData.selectedStringForModel=binding.textForPlane.getText().toString();
+
+                    arProductToPlace = new ArProduct(0, ArProduct.ArProductType.TEXT_MODEL);
+                    arProductToPlace.setText(binding.textForPlane.getText().toString());
+
                     dialog.dismiss();
                 }
             }

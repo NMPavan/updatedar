@@ -6,4 +6,6 @@
     <string name="_3d_model">3D Model</string>
     <string name="image_model">Image</string>
     <string name="text_model">Text</string>
+    <string name="error_camera_distance">Please keep more distance between camera and selected position</string>
+    <string name="error_vertical_plane">Cannot place table on selected plane. please select vertically upward facing plane</string>
 </resources>

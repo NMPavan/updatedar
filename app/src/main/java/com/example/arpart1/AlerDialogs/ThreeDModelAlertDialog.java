@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.example.arpart1.Adapter.ThreeDModelAdapter;
 import com.example.arpart1.Models.ImageDetailModel;
+import com.example.arpart1.Models.Images;
 import com.example.arpart1.R;
 import com.example.arpart1.databinding.ModelDisplayBinding;
 

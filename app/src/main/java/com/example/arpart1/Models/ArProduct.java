@@ -6,6 +6,7 @@ public class ArProduct {
 
 
     private Uri uri;
+    private String text;
 
     public Uri getUri() {
         return uri;
@@ -45,9 +46,16 @@ public class ArProduct {
     public int getNewIdForModel() {
         return 0;
     }
+
     public void setUri(Uri uri) {
 
         this.uri = uri;
+    }
+
+    public void setText(String text) {
+
+
+        this.text = text;
     }
 
 

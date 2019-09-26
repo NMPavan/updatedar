@@ -36,7 +36,7 @@
                 style="@style/image_alert_dialog_BTN"
                 android:text="@string/ok"
                 android:enabled="false"
-                android:background="@android:color/darker_gray" />
+                android:background="@color/disabled_button" />
 
 
         </LinearLayout>

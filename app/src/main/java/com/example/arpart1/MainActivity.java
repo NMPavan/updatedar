@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.example.arpart1.AlerDialogs.ImageAlertDialog;
 import com.example.arpart1.AlerDialogs.ThreeDModelAlertDialog;
 import com.example.arpart1.AlerDialogs.TextAlertDialog;
+import com.example.arpart1.Renderable.ArHelper;
 import com.example.arpart1.Utils.StaticData;
 import com.example.arpart1.databinding.ActivityMainBinding;
 import com.google.ar.core.Anchor;
@@ -34,7 +35,6 @@ import com.google.ar.sceneform.ux.TransformableNode;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = SceneActivity.class.getSimpleName();
-    private static final double THRESHOLD = 1.5;
 
 
     ActivityMainBinding binding;
@@ -104,54 +104,12 @@ public class MainActivity extends AppCompatActivity {
             arFragment.setOnTapArPlaneListener(new BaseArFragment.OnTapArPlaneListener() {
                 @Override
                 public void onTapPlane(HitResult hitResult, Plane plane, MotionEvent motionEvent) {
-                    onTapDetectedPlane(hitResult, plane, motionEvent);
+                    ArHelper arHelper=new ArHelper(MainActivity.this,arFragment,hitResult,plane,motionEvent);
+                    arHelper.placeModel();
                 }
             });
     }
 
-    private void onTapDetectedPlane(HitResult hitResult, Plane plane, MotionEvent motionEvent) {
-        if (plane != null)
-            if (plane.getType().equals(Plane.Type.HORIZONTAL_UPWARD_FACING)
-                    && hitResult.getDistance() > THRESHOLD) {
-                placeModel(hitResult, plane, motionEvent);
-            } else if (hitResult.getDistance() < THRESHOLD) {
-                StaticData.showSnackBar(binding.root,
-                        "Please keep more distance between camera and selected position");
-
-            } else if (!plane.getType().equals(Plane.Type.HORIZONTAL_UPWARD_FACING)) {
-                StaticData.showSnackBar(binding.root,
-                        "Cannot place table on selected plane. please select vertically upward facing plane");
-            }
-
-
-    }
-
-    private void placeModel(HitResult hitResult, Plane plane, MotionEvent motionEvent) {
-        AnchorNode anchorNode = getAnchorNode(hitResult.createAnchor());
-        if(anchorNode!=null)
-        createTransformableNode(anchorNode);
-
-    }
-
-    private void createTransformableNode(AnchorNode anchorNode) {
-        TransformableNode andy = new TransformableNode(arFragment.getTransformationSystem());
-        andy.setLocalPosition(new Vector3(0.0f, 0.0f, 0.0f));
-        andy.setParent(anchorNode);
-        andy.getTranslationController().setEnabled(false);//disble drag place interaction
-        //todo: andy.setRenderable(andyRenderable);
-        andy.select();
-
-    }
-
-    private AnchorNode getAnchorNode(Anchor anchor) {
-        //parent anchor
-        //doesn't depend on placing model
-        AnchorNode anchorNode = new AnchorNode(anchor);
-        anchorNode.setParent(arFragment.getArSceneView().getScene());
-        anchorNode.setLocalPosition(new Vector3(
-                anchorNode.getLocalPosition().x, 0, anchorNode.getLocalPosition().z));
-        return anchorNode;
-    }
 
     private void setListeners() {
 

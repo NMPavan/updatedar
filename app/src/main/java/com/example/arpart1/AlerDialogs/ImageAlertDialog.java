@@ -1,13 +1,18 @@
 package com.example.arpart1.AlerDialogs;
 
 import android.app.AlertDialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.annotation.AnyRes;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
@@ -23,6 +28,7 @@ import com.example.arpart1.databinding.ImageAlertDialogBinding;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static android.support.constraint.Constraints.TAG;
 import static com.example.arpart1.Utils.StaticData.arProductToPlace;
 
 
@@ -51,6 +57,7 @@ public class ImageAlertDialog {
         }
         binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.image_alert_dialog, null, false);
         builder.setView(binding.getRoot());
+
         dialog = builder.create();
 
         setRecycler();
@@ -85,7 +92,7 @@ public class ImageAlertDialog {
                 StaticData.selectedFinalImage = image;
                 StaticData.selectedItemName = text;
 
-
+                uri = getUriToDrawable(image);
                 binding.selectedImage.setImageResource(StaticData.selectedFinalImage);
             }
         });
@@ -117,6 +124,14 @@ public class ImageAlertDialog {
         });
     }
 
+
+    private Uri getUriToDrawable(@AnyRes int drawableId) {
+        Uri parse = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
+                "://" + context.getResources().getResourcePackageName(drawableId)
+                + '/' + context.getResources().getResourceTypeName(drawableId)
+                + '/' + context.getResources().getResourceEntryName(drawableId));
+        return parse;
+    }
 
     private void addData() {
         dataList.add(new Images(R.drawable.chair_thumb, "Chair"));
