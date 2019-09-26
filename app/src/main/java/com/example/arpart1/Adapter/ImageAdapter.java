@@ -62,6 +62,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
 
 
         void OnClick(int pos, int image, String text);
+
     }
 
     public class ImageViewHolder extends RecyclerView.ViewHolder {
