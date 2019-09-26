@@ -54,7 +54,7 @@
                     android:id="@+id/andy"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/images_andy"
+                    android:src="@drawable/andy"
                     android:text="Plane Details"
                     android:textColor="#000000"
                     android:visibility="visible"/>
@@ -64,7 +64,7 @@
 
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/chair_thumb"
+                    android:src="@drawable/chair"
                     android:text="Plane Details"
                     android:textColor="#000000"
                     android:visibility="visible"/>
@@ -74,7 +74,7 @@
 
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/images"
+                    android:src="@drawable/table"
                     android:text="Plane Details"
                     android:textColor="#000000"
                     android:visibility="visible"/>

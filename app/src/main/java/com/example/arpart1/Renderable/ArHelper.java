@@ -14,11 +14,12 @@ import com.google.ar.sceneform.HitTestResult;
 import com.google.ar.sceneform.Node;
 import com.google.ar.sceneform.math.Vector3;
 import com.google.ar.sceneform.rendering.ModelRenderable;
+import com.google.ar.sceneform.rendering.ViewRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
 
 public class ArHelper {
-    private static final double THRESHOLD = 1.5;
+    private static final double THRESHOLD = 0.5;
 
     private Context context;
     private ArFragment arFragment;
@@ -69,15 +70,19 @@ public class ArHelper {
         placeRenderable(andy);
 //        andy.select();
         setError("MODEL PLACED");
+        setCrossButton(andy,anchorNode);
 
-        anchorNode.setOnTapListener(new Node.OnTapListener() {
-            @Override
-            public void onTap(HitTestResult hitTestResult, MotionEvent motionEvent) {
-                setError("MODEL tapped");
 
-            }
-        });
+    }
 
+    private void setCrossButton(TransformableNode andy, AnchorNode anchorNode) {
+        TransformableNode transformableNode = new TransformableNode(arFragment.getTransformationSystem());
+        transformableNode.setLocalPosition(new Vector3(0.0f, andy.getLocalPosition().y+0.40f, 0.0f));
+        transformableNode.setParent(anchorNode);
+        transformableNode.getTranslationController().setEnabled(false);//disble dra
+        ViewRenderableCrossButton viewRenderableCrossButton = new ViewRenderableCrossButton(context,
+                arFragment, transformableNode, anchorNode);
+        viewRenderableCrossButton.createModel();
 
     }
 
@@ -86,22 +91,21 @@ public class ArHelper {
             switch (StaticData.arProductToPlace.getArProductType()) {
                 case IMAGE_MODEL:
                     ViewRenderableImage viewRenderableImage = new ViewRenderableImage(context, arFragment,
-                            StaticData.arProductToPlace.getUri(),andy);
+                            StaticData.arProductToPlace.getUri(), andy);
                     viewRenderableImage.createModel();
-//                    andy.setRenderable(viewRenderableImage.getViewRenderable());
                     setError("MODEL rendered");
                     break;
                 case THREED_MODEL:
-                    ModelRenderable3D modelRenderable=new ModelRenderable3D(context, arFragment,
-                           R.raw.andy,andy);
+                    ModelRenderable3D modelRenderable = new ModelRenderable3D(context, arFragment,
+                            StaticData.arProductToPlace.getRawModel(), andy);
                     modelRenderable.createModel();
-//                    andy.setRenderable(modelRenderable.getViewRenderable());
                     setError("MODEL rendered");
-
-
                     break;
                 case TEXT_MODEL:
-
+                    ViewRenderableText viewRenderableText = new ViewRenderableText(context, arFragment,
+                            StaticData.arProductToPlace.getText(), andy);
+                    viewRenderableText.createModel();
+                    setError("MODEL rendered");
                     break;
 
             }

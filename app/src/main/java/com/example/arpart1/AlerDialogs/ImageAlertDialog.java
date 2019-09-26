@@ -9,10 +9,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.AnyRes;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
@@ -28,7 +25,6 @@ import com.example.arpart1.databinding.ImageAlertDialogBinding;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static android.support.constraint.Constraints.TAG;
 import static com.example.arpart1.Utils.StaticData.arProductToPlace;
 
 
@@ -134,8 +130,8 @@ public class ImageAlertDialog {
     }
 
     private void addData() {
-        dataList.add(new Images(R.drawable.chair_thumb, "Chair"));
-        dataList.add(new Images(R.drawable.images, "Table"));
+        dataList.add(new Images(R.drawable.chair, "Chair"));
+        dataList.add(new Images(R.drawable.table, "Table"));
         dataList.add(new Images(R.drawable.fox, "Fox"));
     }
 

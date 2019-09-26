@@ -118,8 +118,6 @@ public class MainActivity extends AppCompatActivity {
 
         binding.Cl3dModel.setOnClickListener(view -> {
             threeDModelAlertDialog.createAlertDialog();
-            //todo: for testing
-            arProductToPlace = new ArProduct(0, ArProduct.ArProductType.THREED_MODEL);
 
         });
         binding.ClImageModel.setOnClickListener(view -> {

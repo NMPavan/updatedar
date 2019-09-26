@@ -7,9 +7,22 @@ public class ArProduct {
 
     private Uri uri;
     private String text;
+    private int rawModel;
 
     public Uri getUri() {
         return uri;
+    }
+
+    public int getRawModel() {
+        return rawModel;
+    }
+
+    public void setRawModel(int rawModel) {
+        this.rawModel = rawModel;
+    }
+
+    public String getText() {
+        return text;
     }
 
     public enum ArProductType {

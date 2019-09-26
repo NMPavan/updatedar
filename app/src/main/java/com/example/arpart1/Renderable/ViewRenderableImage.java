@@ -21,11 +21,6 @@ public class ViewRenderableImage
     Uri imageUri;
     private TransformableNode node;
 
-    public ViewRenderable getViewRenderable() {
-        return viewRenderable;
-    }
-
-    ViewRenderable viewRenderable;
 
     public ViewRenderableImage(Context context, ArFragment arFragment, Uri imageUri, TransformableNode node) {
         this.context = context;
@@ -44,7 +39,6 @@ public class ViewRenderableImage
                    View view=viewRenderable.getView();
                     ImageView selectedImage=view.findViewById(R.id.selectedImageModel);
                     selectedImage.setImageURI(imageUri);
-                    this.viewRenderable=viewRenderable;
                     node.setRenderable(viewRenderable);
                     node.select();
 
@@ -59,10 +53,4 @@ public class ViewRenderableImage
 
     }
 
-    private void placeModel(ViewRenderable viewRenderable, Anchor anchor)
-    {
-        AnchorNode anchorNode=new AnchorNode(anchor);
-        anchorNode.setRenderable(viewRenderable);
-        arFragment.getArSceneView().getScene().addChild(anchorNode);
-    }
 }
