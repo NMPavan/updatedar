@@ -96,11 +96,30 @@ public class MainActivity extends AppCompatActivity {
         setListeners();
         setArFragment();
 
+        try {
+            View decorView = getWindow().getDecorView();
+// Hide both the navigation bar and the status bar.
+// SYSTEM_UI_FLAG_FULLSCREEN is only available on Android 4.1 and higher, but as
+// a general rule, you should design your app to hide the status bar whenever you
+// hide the navigation bar.
+
+//        int uiOptions = View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR ;
+            decorView.setSystemUiVisibility(16);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     private void setArFragment() {
         if (findViewById(arFragmentId) != null) {
             arFragment = (ArFragment) getSupportFragmentManager().findFragmentById(arFragmentId);
+            try {
+                ArHelper.setPlaneTexture(MainActivity.this,"asterisk.png",arFragment.getArSceneView());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         if (arFragment != null)

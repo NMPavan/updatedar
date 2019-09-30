@@ -2,6 +2,12 @@ package com.example.arpart1.Models;
 
 import android.net.Uri;
 
+import com.example.arpart1.R;
+import com.example.arpart1.Renderable.ModelRenderable3D;
+import com.example.arpart1.Renderable.ViewRenderableImage;
+import com.example.arpart1.Renderable.ViewRenderableText;
+import com.example.arpart1.Utils.StaticData;
+
 public class ArProduct {
 
 
@@ -23,6 +29,14 @@ public class ArProduct {
 
     public String getText() {
         return text;
+    }
+
+    public Boolean getIfModelIsTable() {
+        if (this.arProductType == ArProductType.THREED_MODEL && this.getRawModel() == R.raw.table)
+            return true;
+        else
+            return false;
+
     }
 
     public enum ArProductType {
@@ -69,6 +83,25 @@ public class ArProduct {
 
 
         this.text = text;
+    }
+
+    public double getThresholdDistance() {
+        float thresholdDistance = 0.5f;
+
+        switch (this.arProductType) {
+            case IMAGE_MODEL:
+                thresholdDistance = 1.25f;
+
+                break;
+            case THREED_MODEL:
+                thresholdDistance = 1.5f;
+                break;
+            case TEXT_MODEL:
+
+                break;
+        }
+
+        return thresholdDistance;
     }
 
 

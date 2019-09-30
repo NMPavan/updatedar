@@ -23,6 +23,7 @@ public class ViewRenderableCrossButton {
     ArFragment arFragment;
     private TransformableNode node;
     private AnchorNode nodeToremove;
+    ImageView deleteNode;
 
 
     public ViewRenderableCrossButton(Context context, ArFragment arFragment, TransformableNode node, AnchorNode nodeToremove) {
@@ -39,7 +40,7 @@ public class ViewRenderableCrossButton {
                 .build()
                 .thenAccept(viewRenderable -> {
                     View view = viewRenderable.getView();
-                    ImageView deleteNode = view.findViewById(R.id.selectedImageModel);
+                    deleteNode = view.findViewById(R.id.selectedImageModel);
                     setImage(deleteNode);
 
                     deleteNode.setOnClickListener(new View.OnClickListener() {
@@ -62,24 +63,7 @@ public class ViewRenderableCrossButton {
                             }
                         }
                     });
-                    assert nodeToremove != null;
-                    nodeToremove.setOnTouchListener(new Node.OnTouchListener() {
-                        @Override
-                        public boolean onTouch(HitTestResult hitTestResult, MotionEvent motionEvent) {
-                            try {
-                                if (deleteNode.getVisibility() == View.VISIBLE)
-                                    deleteNode.setVisibility(View.INVISIBLE);
-                                else
-                                    deleteNode.setVisibility(View.VISIBLE);
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-
-
-                            return false;
-                        }
-
-                    });
+                    toggleVisibility();
                     node.setRenderable(viewRenderable);
                     node.select();
                     arFragment.getTransformationSystem().getSelectionVisualizer().removeSelectionVisual(node);
@@ -97,21 +81,40 @@ public class ViewRenderableCrossButton {
 
     }
 
+    public void toggleVisibility() {
+        if (deleteNode != null) {
+
+            try {
+                if (deleteNode.getVisibility() == View.VISIBLE)
+                    deleteNode.setVisibility(View.INVISIBLE);
+                else
+                    deleteNode.setVisibility(View.VISIBLE);
+                Toast toast =
+                        Toast.makeText(context, "toggle start:" + deleteNode.getVisibility(), Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast toast1 =
+                        Toast.makeText(context, e.getLocalizedMessage(), Toast.LENGTH_LONG);
+                toast1.setGravity(Gravity.BOTTOM, 0, 0);
+                toast1.show();
+            }
+        }
+    }
+
     private void setImage(ImageView deleteNode) {
         try {
             ViewGroup.LayoutParams params = deleteNode.getLayoutParams();
-            params.width = 24;
-            params.height = 24;
+            params.width = 50;
+            params.height = 50;
 // existing height is ok as is, no need to edit it
             deleteNode.setLayoutParams(params);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        deleteNode.setImageResource(R.drawable.ic_delete_black_24dp);
-        Toast toast =
-                Toast.makeText(context, "setImage", Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.BOTTOM, 0, 0);
-        toast.show();
+        deleteNode.setImageResource(R.drawable.ic_cross);
+
 
     }
 

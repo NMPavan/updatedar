@@ -14,7 +14,6 @@
         android:id="@+id/selectedTextModel"
         style="@style/select_image_Style"
         tools:text="shubham"
-        android:visibility="gone"
         android:textColor="@android:color/holo_red_dark"
         android:textAllCaps="false"/>
 
