@@ -52,7 +52,7 @@ public class ThreeDModelAlertDialog {
         threeModelAdapter.setOnItemClickListener(new ThreeModelAdapter.OnItemClickListener() {
             @Override
             public void OnClick(int pos, int rawModelId) {
-                arProductToPlace = new ArProduct(0, ArProduct.ArProductType.THREED_MODEL);
+                arProductToPlace = new ArProduct(ArProduct.ArProductType.THREED_MODEL);
                 arProductToPlace.setRawModel(rawModelId);
 
             }

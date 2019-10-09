@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 public class StaticData {
     public static ArrayList<AddedObject> addedObjects = new ArrayList<AddedObject>();
+    public static ArrayList<ArProduct> placedObjects = new ArrayList<ArProduct>();
     public static int selectedFinalImage;
     public static String selectedItemName;
     public  static  String selectedStringForModel;

@@ -39,6 +39,8 @@ public class ViewRenderableImage
                    View view=viewRenderable.getView();
                     ImageView selectedImage=view.findViewById(R.id.selectedImageModel);
                     selectedImage.setImageURI(imageUri);
+                    viewRenderable.setShadowCaster(false);
+                    viewRenderable.setShadowReceiver(false);
                     node.setRenderable(viewRenderable);
                     node.select();
 

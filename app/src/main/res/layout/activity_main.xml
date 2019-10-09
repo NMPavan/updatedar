@@ -18,72 +18,120 @@
             android:name="com.google.ar.sceneform.ux.ArFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@id/selectior_layout"/>
+            android:layout_above="@id/selectior_layout" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_above="@id/selectior_layout"
-            android:background="@color/white" />
 
         <LinearLayout
             android:id="@+id/selectior_layout"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="16dp"
+
             android:background="@color/white"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <android.support.constraint.ConstraintLayout
-                android:id="@+id/Cl_3d_model"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="horizontal">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
 
+                android:layout_above="@id/select_desc"
+                android:background="@color/gray" />
 
-                <TextView
-                    style="@style/selector_options_text"
-                    android:text="@string/_3d_model"
-                    tools:ignore="MissingConstraints" />
+            <TextView
+                android:id="@+id/select_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/selectior_layout"
+                android:layout_marginBottom="9dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/select_one_of_these_to_place" />
 
-            </android.support.constraint.ConstraintLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center">
 
-            <android.support.constraint.ConstraintLayout
-                android:id="@+id/Cl_image_model"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-
-                <TextView
-                    style="@style/selector_options_text"
-                    android:text="@string/image_model"
-                    tools:ignore="MissingConstraints" />
-
-
-            </android.support.constraint.ConstraintLayout>
-
-            <android.support.constraint.ConstraintLayout
-                android:id="@+id/Cl_text_model"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-
-                <TextView
-                    style="@style/selector_options_text"
-                    android:text="@string/text_model"
-                    tools:ignore="MissingConstraints" />
+                <LinearLayout
+                    android:id="@+id/Cl_3d_model"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
 
-            </android.support.constraint.ConstraintLayout>
+                    <TextView
+                        android:id="@+id/textView"
+                        style="@style/selector_options_text"
+                        android:gravity="center_horizontal"
+                        android:text="@string/_3d_model"
+                        app:layout_constraintStart_toStartOf="parent"
+                        tools:ignore="MissingConstraints" />
+
+                    <TextView
+                        android:id="@+id/count_3d_placed"
+                        style="@style/model_placed_count_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                      />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/Cl_image_model"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/selector_options_text"
+                        android:text="@string/image_model"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        tools:ignore="MissingConstraints" />
+                    <TextView
+                        android:id="@+id/count_image_placed"
+                        style="@style/model_placed_count_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/Cl_text_model"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/selector_options_text"
+                        android:text="@string/text_model"
+                        tools:ignore="MissingConstraints" />
+
+                    <TextView
+                        android:id="@+id/count_text_placed"
+                        style="@style/model_placed_count_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        />
+                </LinearLayout>
 
 
-
+            </LinearLayout>
 
         </LinearLayout>
-
-
     </RelativeLayout>
 </layout>

@@ -34,6 +34,8 @@ public class ViewRenderableText {
                     View view = viewRenderable.getView();
                     TextView selectedText = view.findViewById(R.id.selectedTextModel);
                     selectedText.setText(textModel);
+                    viewRenderable.setShadowCaster(false);
+                    viewRenderable.setShadowReceiver(false);
                     node.setRenderable(viewRenderable);
                     node.select();
                 })

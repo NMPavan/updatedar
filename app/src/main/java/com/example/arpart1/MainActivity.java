@@ -21,6 +21,9 @@ import com.example.arpart1.AlerDialogs.ThreeDModelAlertDialog;
 import com.example.arpart1.AlerDialogs.TextAlertDialog;
 import com.example.arpart1.Models.ArProduct;
 import com.example.arpart1.Renderable.ArHelper;
+import com.example.arpart1.Renderable.ModelRenderable3D;
+import com.example.arpart1.Renderable.ViewRenderableImage;
+import com.example.arpart1.Renderable.ViewRenderableText;
 import com.example.arpart1.Utils.StaticData;
 import com.example.arpart1.databinding.ActivityMainBinding;
 import com.google.ar.core.Anchor;
@@ -34,6 +37,7 @@ import com.google.ar.sceneform.ux.BaseArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
 
 import static com.example.arpart1.Utils.StaticData.arProductToPlace;
+import static com.example.arpart1.Utils.StaticData.placedObjects;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -47,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     ArFragment arFragment;
+    int[] countPlacedObjects = {0, 0, 0};
     int arFragmentId = R.id.ux_ar_fragment;
 
     //region sceneForm setup
@@ -90,9 +95,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        imageAlertDialog=new ImageAlertDialog(this);
-        textAlertDialog=new TextAlertDialog(this);
-        threeDModelAlertDialog=new ThreeDModelAlertDialog(this);
+        imageAlertDialog = new ImageAlertDialog(this);
+        textAlertDialog = new TextAlertDialog(this);
+        threeDModelAlertDialog = new ThreeDModelAlertDialog(this);
         setListeners();
         setArFragment();
 
@@ -116,7 +121,8 @@ public class MainActivity extends AppCompatActivity {
         if (findViewById(arFragmentId) != null) {
             arFragment = (ArFragment) getSupportFragmentManager().findFragmentById(arFragmentId);
             try {
-                ArHelper.setPlaneTexture(MainActivity.this,"asterisk.png",arFragment.getArSceneView());
+                //plane material change
+//                ArHelper.setPlaneTexture(MainActivity.this, "asterisk.png", arFragment.getArSceneView());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -126,10 +132,45 @@ public class MainActivity extends AppCompatActivity {
             arFragment.setOnTapArPlaneListener(new BaseArFragment.OnTapArPlaneListener() {
                 @Override
                 public void onTapPlane(HitResult hitResult, Plane plane, MotionEvent motionEvent) {
-                    ArHelper arHelper=new ArHelper(MainActivity.this,arFragment,hitResult,plane,motionEvent);
+                    ArHelper arHelper = new ArHelper(MainActivity.this, arFragment, hitResult, plane, motionEvent);
                     arHelper.placeModel();
+                    try {
+                        arHelper.getArrayListMutableLiveData().observe(MainActivity.this, arProducts -> {
+                            updateCount();
+                        });
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             });
+    }
+
+    private void updateCount() {
+        for (ArProduct arProduct :
+                placedObjects) {
+            switch (arProduct.getArProductType()) {
+                case IMAGE_MODEL:
+                    countPlacedObjects[1]++;
+
+                    break;
+                case THREED_MODEL:
+                    countPlacedObjects[0]++;
+
+                    break;
+                case TEXT_MODEL:
+                    countPlacedObjects[2]++;
+
+                    break;
+
+            }
+        }
+        if (countPlacedObjects[0] != 0)
+            binding.count3dPlaced.setText(String.valueOf(countPlacedObjects[0]));
+        if (countPlacedObjects[1] != 0)
+            binding.countImagePlaced.setText(String.valueOf(countPlacedObjects[1]));
+        if (countPlacedObjects[2] != 0)
+            binding.countTextPlaced.setText(String.valueOf(countPlacedObjects[2]));
+
     }
 
 

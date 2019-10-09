@@ -81,7 +81,7 @@ public class TextAlertDialog {
                 } else {
                     StaticData.selectedStringForModel=binding.textForPlane.getText().toString();
 
-                    arProductToPlace = new ArProduct(0, ArProduct.ArProductType.TEXT_MODEL);
+                    arProductToPlace = new ArProduct( ArProduct.ArProductType.TEXT_MODEL);
                     arProductToPlace.setText(binding.textForPlane.getText().toString());
 
                     dialog.dismiss();

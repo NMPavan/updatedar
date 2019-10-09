@@ -8,9 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.arpart1.R;
+import com.example.arpart1.Utils.ModelDeleteListener;
 import com.google.ar.sceneform.AnchorNode;
 import com.google.ar.sceneform.HitTestResult;
 import com.google.ar.sceneform.Node;
@@ -19,30 +21,50 @@ import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
 
 public class ViewRenderableCrossButton {
+    private String textDesc;
     Context context;
     ArFragment arFragment;
     private TransformableNode node;
     private AnchorNode nodeToremove;
+    private int productId;
+    private ModelDeleteListener modelDeleteListener;
     ImageView deleteNode;
+    TextView textDescTv;
 
 
-    public ViewRenderableCrossButton(Context context, ArFragment arFragment, TransformableNode node, AnchorNode nodeToremove) {
+    public ViewRenderableCrossButton(Context context, ArFragment arFragment, TransformableNode node,
+                                     AnchorNode nodeToremove, int productId, ModelDeleteListener modelDeleteListener) {
         this.context = context;
         this.arFragment = arFragment;
         this.node = node;
         this.nodeToremove = nodeToremove;
+        this.productId = productId;
+        this.modelDeleteListener = modelDeleteListener;
+    }
+ public ViewRenderableCrossButton(String textDesc, Context context, ArFragment arFragment, TransformableNode node,
+                                     AnchorNode nodeToremove, int productId, ModelDeleteListener modelDeleteListener) {
+     this.textDesc = textDesc;
+     this.context = context;
+        this.arFragment = arFragment;
+        this.node = node;
+        this.nodeToremove = nodeToremove;
+        this.productId = productId;
+        this.modelDeleteListener = modelDeleteListener;
     }
 
 
     public void createModel() {
         ViewRenderable.builder()
-                .setView(context, R.layout.image_and_text_model)
+                .setView(context, R.layout.layout_delete_node)
                 .build()
                 .thenAccept(viewRenderable -> {
                     View view = viewRenderable.getView();
-                    deleteNode = view.findViewById(R.id.selectedImageModel);
+                    deleteNode = view.findViewById(R.id.iv_delete);
+                    textDescTv = view.findViewById(R.id.desc);
                     setImage(deleteNode);
-
+                    textDescTv.setText(textDesc);
+                    viewRenderable.setShadowCaster(false);
+                    viewRenderable.setShadowReceiver(false);
                     deleteNode.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -53,7 +75,7 @@ public class ViewRenderableCrossButton {
                                     nodeToremove.getAnchor().detach();
                                     nodeToremove.setParent(null);
                                     nodeToremove = null;
-
+                                    modelDeleteListener.modelDeleteListener(productId);
 
                                 } catch (Exception e) {
                                     e.printStackTrace();
@@ -63,12 +85,14 @@ public class ViewRenderableCrossButton {
                             }
                         }
                     });
-                    toggleVisibility();
                     node.setRenderable(viewRenderable);
                     node.select();
-                    arFragment.getTransformationSystem().getSelectionVisualizer().removeSelectionVisual(node);
 
-                    nodeToremove.addChild(node);
+                    //                    toggleVisibility();
+
+//                    arFragment.getTransformationSystem().getSelectionVisualizer().removeSelectionVisual(node);
+//unknown line
+//                    nodeToremove.addChild(node);
 
                 }).exceptionally(
                 throwable -> {
@@ -104,18 +128,7 @@ public class ViewRenderableCrossButton {
     }
 
     private void setImage(ImageView deleteNode) {
-        try {
-            ViewGroup.LayoutParams params = deleteNode.getLayoutParams();
-            params.width = 50;
-            params.height = 50;
-// existing height is ok as is, no need to edit it
-            deleteNode.setLayoutParams(params);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         deleteNode.setImageResource(R.drawable.ic_cross);
-
-
     }
 
 }

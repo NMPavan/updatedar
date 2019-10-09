@@ -104,7 +104,7 @@ public class ImageAlertDialog {
             @Override
             public void onClick(View view) {
                 if (uri != null) {
-                    arProductToPlace = new ArProduct(0, ArProduct.ArProductType.IMAGE_MODEL);
+                    arProductToPlace = new ArProduct( ArProduct.ArProductType.IMAGE_MODEL);
                     arProductToPlace.setUri(uri);
                 }
 

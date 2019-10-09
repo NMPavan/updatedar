@@ -8,5 +8,7 @@
     <color name="black">#000000</color>
     <color name="disabled_button">#ACABAB</color>
     <color name="selector">#EEECEC</color>
+    <color name="blue_border_background">#DDEDFA</color>
+    <color name="blue_border_stroke">#BEDBE3</color>
 
 </resources>

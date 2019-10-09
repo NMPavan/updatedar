@@ -1,11 +1,14 @@
 package com.example.arpart1.Renderable;
 
+import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.Toast;
 
+import com.example.arpart1.Models.ArProduct;
 import com.example.arpart1.R;
+import com.example.arpart1.Utils.ModelDeleteListener;
 import com.example.arpart1.Utils.StaticData;
 import com.google.ar.core.Anchor;
 import com.google.ar.core.HitResult;
@@ -21,7 +24,10 @@ import com.google.ar.sceneform.rendering.Texture;
 import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
 
+import java.util.ArrayList;
+
 import static android.support.constraint.Constraints.TAG;
+import static com.example.arpart1.Utils.StaticData.placedObjects;
 import static com.google.ar.sceneform.rendering.MaterialFactory.MATERIAL_TEXTURE;
 import static com.google.ar.sceneform.rendering.PlaneRenderer.MATERIAL_UV_SCALE;
 
@@ -33,6 +39,12 @@ public class ArHelper {
     private HitResult hitResult;
     private Plane plane;
     private MotionEvent motionEvent;
+
+    public MutableLiveData<ArrayList<ArProduct>> getArrayListMutableLiveData() {
+        return arrayListMutableLiveData;
+    }
+
+    public MutableLiveData<ArrayList<ArProduct>> arrayListMutableLiveData=new MutableLiveData<>();
 
     public ArHelper(Context context, ArFragment arFragment, HitResult hitResult, Plane plane, MotionEvent motionEvent) {
         this.context = context;
@@ -93,13 +105,22 @@ public class ArHelper {
             yCross = box.getExtents().y + 0.25f;
             zCross = box.getExtents().z;
         }
+
+        String textDesc="x extents : "+box.getExtents().x+ "y extents : "+box.getExtents().y+"z extents : "+box.getExtents().z;
+
         TransformableNode transformableNode = new TransformableNode(arFragment.getTransformationSystem());
         transformableNode.setLocalPosition(new Vector3(0.0f, andy.getLocalPosition().y + yCross,
                 andy.getLocalPosition().z + zCross));
         transformableNode.setParent(anchorNode);
         transformableNode.getTranslationController().setEnabled(false);//disble dra
-        ViewRenderableCrossButton viewRenderableCrossButton = new ViewRenderableCrossButton(context,
-                arFragment, transformableNode, anchorNode);
+
+        ViewRenderableCrossButton viewRenderableCrossButton = new ViewRenderableCrossButton(textDesc,context,
+                arFragment, transformableNode, anchorNode, StaticData.arProductToPlace.getProductId(), new ModelDeleteListener() {
+            @Override
+            public void modelDeleteListener(int productId) {
+                removeProductFromList(productId);
+            }
+        });
         viewRenderableCrossButton.createModel();
 
 
@@ -107,9 +128,24 @@ public class ArHelper {
             @Override
             public void onTap(HitTestResult hitTestResult, MotionEvent motionEvent) {
                 viewRenderableCrossButton.toggleVisibility();
+                setError("clicked");
             }
         });
 
+    }
+
+    private void removeProductFromList(int productId) {
+        int index=-1;
+        for (int i = 0; i < placedObjects.size(); i++) {
+            if(placedObjects.get(i).getProductId()==productId)
+                index=i;
+        }
+
+        if(index!=-1) {
+            placedObjects.remove(index);
+            arrayListMutableLiveData.setValue(placedObjects);
+
+        }
     }
 
     private void placeRenderable(TransformableNode andy) {
@@ -132,6 +168,9 @@ public class ArHelper {
                     break;
 
             }
+
+            placedObjects.add(StaticData.arProductToPlace);
+            arrayListMutableLiveData.setValue(placedObjects);
         }
 
     }

@@ -37,6 +37,7 @@ import com.google.ar.sceneform.ux.TransformableNode;
 
 /**
  * This is an example activity that uses the Sceneform UX package to make common AR tasks easier.
+ * donot put this as launcher activity
  */
 public class SceneActivity extends AppCompatActivity {
     private static final String TAG = SceneActivity.class.getSimpleName();
