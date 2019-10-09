@@ -41,10 +41,11 @@ public class ViewRenderableCrossButton {
         this.productId = productId;
         this.modelDeleteListener = modelDeleteListener;
     }
- public ViewRenderableCrossButton(String textDesc, Context context, ArFragment arFragment, TransformableNode node,
+
+    public ViewRenderableCrossButton(String textDesc, Context context, ArFragment arFragment, TransformableNode node,
                                      AnchorNode nodeToremove, int productId, ModelDeleteListener modelDeleteListener) {
-     this.textDesc = textDesc;
-     this.context = context;
+        this.textDesc = textDesc;
+        this.context = context;
         this.arFragment = arFragment;
         this.node = node;
         this.nodeToremove = nodeToremove;
@@ -88,11 +89,11 @@ public class ViewRenderableCrossButton {
                     node.setRenderable(viewRenderable);
                     node.select();
 
-                    //                    toggleVisibility();
+                    toggleVisibility();
 
-//                    arFragment.getTransformationSystem().getSelectionVisualizer().removeSelectionVisual(node);
+                    arFragment.getTransformationSystem().getSelectionVisualizer().removeSelectionVisual(node);
 //unknown line
-//                    nodeToremove.addChild(node);
+                    nodeToremove.addChild(node);
 
                 }).exceptionally(
                 throwable -> {
