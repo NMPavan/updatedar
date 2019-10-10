@@ -19,7 +19,6 @@
     </style>
 
 
-
     <style name="image_alert_dialog_BTN">
 
         <item name="android:layout_width">0dp</item>
@@ -29,7 +28,6 @@
         <item name="android:textColor">@color/white</item>
 
     </style>
-
 
 
     <style name="edittext_style">
@@ -60,14 +58,24 @@
     </style>
 
     <style name="model_placed_count_text">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:padding">4dp</item>
-        <item name="android:layout_marginStart">5dp</item>
-        <item name="android:text"></item>
-        <item name="android:textSize">20sp</item>
-        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_width">30dp</item>
+        <item name="android:layout_height">30dp</item>
 
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_marginStart">4dp</item>
+
+
+        <item name="android:textSize">20sp</item>
+        <item name="android:text">1</item>
+
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/object_count_background</item>
+
+
+    </style>
+
+    <style name="selector_options_background">
+        <item name="android:gravity">center</item>
 
     </style>
 

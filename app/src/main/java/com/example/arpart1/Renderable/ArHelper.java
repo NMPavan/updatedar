@@ -2,6 +2,7 @@ package com.example.arpart1.Renderable;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
+import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.Toast;
@@ -26,6 +27,7 @@ import com.google.ar.sceneform.ux.TransformableNode;
 
 import java.util.ArrayList;
 
+
 import static android.support.constraint.Constraints.TAG;
 import static com.example.arpart1.Utils.StaticData.placedObjects;
 import static com.google.ar.sceneform.rendering.MaterialFactory.MATERIAL_TEXTURE;
@@ -44,7 +46,7 @@ public class ArHelper {
         return arrayListMutableLiveData;
     }
 
-    public MutableLiveData<ArrayList<ArProduct>> arrayListMutableLiveData=new MutableLiveData<>();
+    public MutableLiveData<ArrayList<ArProduct>> arrayListMutableLiveData = new MutableLiveData<>();
 
     public ArHelper(Context context, ArFragment arFragment, HitResult hitResult, Plane plane, MotionEvent motionEvent) {
         this.context = context;
@@ -89,32 +91,37 @@ public class ArHelper {
         andy.setParent(anchorNode);
         if (StaticData.arProductToPlace.getIfModelIsTable())
             andy.setLocalRotation(Quaternion.axisAngle(new Vector3(0, -1, 0), 90));
-
         andy.getTranslationController().setEnabled(false);//disble drag place interaction
         placeRenderable(andy);
-        setCrossButton(andy, anchorNode);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                setCrossButton(andy, anchorNode);
+            }
+        }, 1000);
 
 
     }
 
     private void setCrossButton(TransformableNode andy, AnchorNode anchorNode) {
         Box box = (Box) andy.getCollisionShape();
-        float yCross = 0f;
-        float zCross = 0f;
+        float yCross = 2f;
+        float zCross = 0.5f;
         if (box != null && box.getExtents() != null) {
             yCross = box.getExtents().y + 0.25f;
             zCross = box.getExtents().z;
         }
 
-        String textDesc="x extents : "+box.getExtents().x+ "y extents : "+box.getExtents().y+"z extents : "+box.getExtents().z;
+        String textDesc = "x extents : " + box.getExtents().x + "y extents : " + box.getExtents().y + "z extents : " + box.getExtents().z;
 
         TransformableNode transformableNode = new TransformableNode(arFragment.getTransformationSystem());
-        transformableNode.setLocalPosition(new Vector3(0.0f, andy.getLocalPosition().y + yCross,
-                andy.getLocalPosition().z + zCross));
+        transformableNode.setLocalPosition(new Vector3(0.0f, yCross,
+                zCross));
         transformableNode.setParent(anchorNode);
         transformableNode.getTranslationController().setEnabled(false);//disble dra
 
-        ViewRenderableCrossButton viewRenderableCrossButton = new ViewRenderableCrossButton(textDesc,context,
+        ViewRenderableCrossButton viewRenderableCrossButton = new ViewRenderableCrossButton(textDesc, context,
                 arFragment, transformableNode, anchorNode, StaticData.arProductToPlace.getProductId(), new ModelDeleteListener() {
             @Override
             public void modelDeleteListener(int productId) {
@@ -122,26 +129,25 @@ public class ArHelper {
             }
         });
         viewRenderableCrossButton.createModel();
-
-
         andy.setOnTapListener(new Node.OnTapListener() {
             @Override
             public void onTap(HitTestResult hitTestResult, MotionEvent motionEvent) {
                 viewRenderableCrossButton.toggleVisibility();
-                setError("clicked");
+//                setError("clicked");
             }
         });
 
     }
 
     private void removeProductFromList(int productId) {
-        int index=-1;
+        int index = -1;
         for (int i = 0; i < placedObjects.size(); i++) {
-            if(placedObjects.get(i).getProductId()==productId)
-                index=i;
+            if (placedObjects.get(i).getProductId() == productId) {
+                index = i;
+                break;
+            }
         }
-
-        if(index!=-1) {
+        if (index != -1) {
             placedObjects.remove(index);
             arrayListMutableLiveData.setValue(placedObjects);
 
@@ -150,6 +156,7 @@ public class ArHelper {
 
     private void placeRenderable(TransformableNode andy) {
         if (StaticData.arProductToPlace != null) {
+            StaticData.arProductToPlace.setProductId();
             switch (StaticData.arProductToPlace.getArProductType()) {
                 case IMAGE_MODEL:
                     ViewRenderableImage viewRenderableImage = new ViewRenderableImage(context, arFragment,

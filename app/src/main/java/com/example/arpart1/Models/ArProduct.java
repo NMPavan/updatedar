@@ -8,6 +8,8 @@ import com.example.arpart1.Renderable.ViewRenderableImage;
 import com.example.arpart1.Renderable.ViewRenderableText;
 import com.example.arpart1.Utils.StaticData;
 
+import java.util.Random;
+
 import static com.example.arpart1.Utils.StaticData.placedObjects;
 
 public class ArProduct {
@@ -53,27 +55,28 @@ public class ArProduct {
 
 
     public ArProduct( ArProductType arProductType) {
-        this.productId =generateProductId();
         this.arProductType = arProductType;
     }
 
     private int generateProductId() {
-        if(placedObjects!=null && placedObjects.size()>1){
-            int i = placedObjects.get(placedObjects.size() - 1).getProductId();
-            i++;
-            return i;
-        }else{
-            return 0;
+//        Random ran = new Random();
+//        int x = ran.nextInt(600) + 5;
+        if(placedObjects!= null && placedObjects.size()>0)
+            return placedObjects.get( placedObjects.size() - 1).getProductId() + 1;
+        else return 0;
 
-        }
+
     }
 
     public int getProductId() {
-        return productId;
+        return this.productId;
     }
 
     public void setProductId(int productId) {
         this.productId = productId;
+    }
+    public void setProductId() {
+        this.productId = generateProductId();
     }
 
     public ArProductType getArProductType() {

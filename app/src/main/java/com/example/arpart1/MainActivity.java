@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.arpart1.AlerDialogs.ImageAlertDialog;
@@ -146,6 +147,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateCount() {
+        countPlacedObjects[0] = 0;
+        countPlacedObjects[1] = 0;
+        countPlacedObjects[2] = 0;
+
         for (ArProduct arProduct :
                 placedObjects) {
             switch (arProduct.getArProductType()) {
@@ -164,12 +169,21 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }
-        if (countPlacedObjects[0] != 0)
-            binding.count3dPlaced.setText(String.valueOf(countPlacedObjects[0]));
-        if (countPlacedObjects[1] != 0)
-            binding.countImagePlaced.setText(String.valueOf(countPlacedObjects[1]));
-        if (countPlacedObjects[2] != 0)
-            binding.countTextPlaced.setText(String.valueOf(countPlacedObjects[2]));
+        setTextToTextView(countPlacedObjects[0], binding.count3dPlaced);
+        setTextToTextView(countPlacedObjects[1], binding.countImagePlaced);
+        setTextToTextView(countPlacedObjects[2], binding.countTextPlaced);
+
+    }
+
+    private void setTextToTextView(int countPlacedObject, TextView textView) {
+        textView.setBackground(null);
+        if (countPlacedObject != 0) {
+            textView.setText(String.valueOf(countPlacedObject));
+            textView.setBackground(getDrawable(R.drawable.object_count_background));
+        }
+        else {
+            textView.setText("");
+        }
 
     }
 

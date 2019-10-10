@@ -9,6 +9,7 @@ import com.example.arpart1.Models.ArProduct;
 import java.util.ArrayList;
 
 public class StaticData {
+    //not used in main application
     public static ArrayList<AddedObject> addedObjects = new ArrayList<AddedObject>();
     public static ArrayList<ArProduct> placedObjects = new ArrayList<ArProduct>();
     public static int selectedFinalImage;

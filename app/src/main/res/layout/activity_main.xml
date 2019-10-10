@@ -57,7 +57,7 @@
 
                 <LinearLayout
                     android:id="@+id/Cl_3d_model"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
@@ -75,8 +75,6 @@
                     <TextView
                         android:id="@+id/count_3d_placed"
                         style="@style/model_placed_count_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
 
                       />
 
@@ -84,7 +82,7 @@
 
                 <LinearLayout
                     android:id="@+id/Cl_image_model"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
@@ -100,8 +98,6 @@
                     <TextView
                         android:id="@+id/count_image_placed"
                         style="@style/model_placed_count_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
 
                         />
 
@@ -109,10 +105,11 @@
 
                 <LinearLayout
                     android:id="@+id/Cl_text_model"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
+                    style="@style/selector_options_background"
                     android:orientation="horizontal">
 
                     <TextView
@@ -123,8 +120,7 @@
                     <TextView
                         android:id="@+id/count_text_placed"
                         style="@style/model_placed_count_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+
 
                         />
                 </LinearLayout>

@@ -1,5 +1,6 @@
 package com.example.arpart1.Renderable;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
 import android.view.Gravity;
@@ -54,6 +55,7 @@ public class ViewRenderableCrossButton {
     }
 
 
+    @SuppressLint("SetTextI18n")
     public void createModel() {
         ViewRenderable.builder()
                 .setView(context, R.layout.layout_delete_node)
@@ -63,7 +65,7 @@ public class ViewRenderableCrossButton {
                     deleteNode = view.findViewById(R.id.iv_delete);
                     textDescTv = view.findViewById(R.id.desc);
                     setImage(deleteNode);
-                    textDescTv.setText(textDesc);
+                    textDescTv.setText("id : " + productId + "\n" + textDesc);
                     viewRenderable.setShadowCaster(false);
                     viewRenderable.setShadowReceiver(false);
                     deleteNode.setOnClickListener(new View.OnClickListener() {
@@ -88,11 +90,8 @@ public class ViewRenderableCrossButton {
                     });
                     node.setRenderable(viewRenderable);
                     node.select();
-
                     toggleVisibility();
-
                     arFragment.getTransformationSystem().getSelectionVisualizer().removeSelectionVisual(node);
-//unknown line
                     nodeToremove.addChild(node);
 
                 }).exceptionally(
@@ -117,7 +116,7 @@ public class ViewRenderableCrossButton {
                 Toast toast =
                         Toast.makeText(context, "toggle start:" + deleteNode.getVisibility(), Toast.LENGTH_LONG);
                 toast.setGravity(Gravity.CENTER, 0, 0);
-                toast.show();
+//                toast.show();
             } catch (Exception e) {
                 e.printStackTrace();
                 Toast toast1 =
