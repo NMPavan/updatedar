@@ -141,12 +141,15 @@ public class ArHelper {
 
     private void removeProductFromList(int productId) {
         int index = -1;
+        String printThis = ",product id=" + productId+".";
         for (int i = 0; i < placedObjects.size(); i++) {
+            printThis = printThis + i + "=" + placedObjects.get(i).getProductId()+",";
             if (placedObjects.get(i).getProductId() == productId) {
                 index = i;
                 break;
             }
         }
+        setError("placedObjects.size()" + placedObjects.size() + printThis + "removing : " + index);
         if (index != -1) {
             placedObjects.remove(index);
             arrayListMutableLiveData.setValue(placedObjects);
@@ -156,7 +159,7 @@ public class ArHelper {
 
     private void placeRenderable(TransformableNode andy) {
         if (StaticData.arProductToPlace != null) {
-            StaticData.arProductToPlace.setProductId();
+            StaticData.arProductToPlace.setProductId(StaticData.objectCount++);
             switch (StaticData.arProductToPlace.getArProductType()) {
                 case IMAGE_MODEL:
                     ViewRenderableImage viewRenderableImage = new ViewRenderableImage(context, arFragment,

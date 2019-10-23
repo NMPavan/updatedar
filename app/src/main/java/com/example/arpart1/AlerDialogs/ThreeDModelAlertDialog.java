@@ -11,6 +11,7 @@ import com.example.arpart1.Adapter.ThreeModelAdapter;
 import com.example.arpart1.Models.ArProduct;
 import com.example.arpart1.Models.ImageDetailModel;
 import com.example.arpart1.R;
+import com.example.arpart1.Utils.SelectorChooseListener;
 import com.example.arpart1.databinding.ModelDisplayBinding;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import static com.example.arpart1.Utils.StaticData.arProductToPlace;
 
 public class ThreeDModelAlertDialog {
     Context context;
+    private SelectorChooseListener selectorChooseListener;
     ThreeModelAdapter threeModelAdapter;
     AlertDialog dialog;
 
@@ -27,8 +29,9 @@ public class ThreeDModelAlertDialog {
     ArrayList<ImageDetailModel> modelImage = new ArrayList<>();
 
 
-    public ThreeDModelAlertDialog(Context context) {
+    public ThreeDModelAlertDialog(Context context, SelectorChooseListener selectorChooseListener) {
         this.context = context;
+        this.selectorChooseListener = selectorChooseListener;
     }
 
     public void createAlertDialog() {
@@ -54,6 +57,8 @@ public class ThreeDModelAlertDialog {
             public void OnClick(int pos, int rawModelId) {
                 arProductToPlace = new ArProduct(ArProduct.ArProductType.THREED_MODEL);
                 arProductToPlace.setRawModel(rawModelId);
+                selectorChooseListener.SelectorChooseListener(ArProduct.ArProductType.THREED_MODEL);
+
 
             }
         });

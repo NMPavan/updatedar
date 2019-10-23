@@ -53,18 +53,12 @@ public class ArProduct {
     private ArProductType arProductType;
 
 
-
-    public ArProduct( ArProductType arProductType) {
+    public ArProduct(ArProductType arProductType) {
         this.arProductType = arProductType;
     }
 
     private int generateProductId() {
-//        Random ran = new Random();
-//        int x = ran.nextInt(600) + 5;
-        if(placedObjects!= null && placedObjects.size()>0)
-            return placedObjects.get( placedObjects.size() - 1).getProductId() + 1;
-        else return 0;
-
+        return 0;
 
     }
 
@@ -75,8 +69,9 @@ public class ArProduct {
     public void setProductId(int productId) {
         this.productId = productId;
     }
+
     public void setProductId() {
-        this.productId = generateProductId();
+        //  this.productId = generateProductId();
     }
 
     public ArProductType getArProductType() {

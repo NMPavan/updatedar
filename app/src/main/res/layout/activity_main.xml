@@ -60,6 +60,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="@drawable/selected_background"
+                    android:layout_marginEnd="12dp"
                     android:gravity="center"
                     android:orientation="horizontal">
 
@@ -86,7 +88,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-
+android:layout_marginStart="12dp"
+android:layout_marginEnd="12dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -109,6 +112,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
                     style="@style/selector_options_background"
                     android:orientation="horizontal">
 

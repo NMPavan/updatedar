@@ -19,6 +19,7 @@ import com.example.arpart1.MainActivity;
 import com.example.arpart1.Models.ArProduct;
 import com.example.arpart1.Models.Images;
 import com.example.arpart1.R;
+import com.example.arpart1.Utils.SelectorChooseListener;
 import com.example.arpart1.Utils.StaticData;
 import com.example.arpart1.databinding.ImageAlertDialogBinding;
 
@@ -31,6 +32,7 @@ import static com.example.arpart1.Utils.StaticData.arProductToPlace;
 public class ImageAlertDialog {
     public static int PICK_IMAGE = 1;
     private Context context;
+    private SelectorChooseListener selectorChooseListener;
     private ImageAlertDialogBinding binding;
     private AlertDialog dialog;
 
@@ -38,9 +40,10 @@ public class ImageAlertDialog {
     Uri uri;
     private ArrayList<Images> dataList = new ArrayList<>();
 
-    public ImageAlertDialog(Context context) {
+    public ImageAlertDialog(Context context, SelectorChooseListener selectorChooseListener) {
 
         this.context = context;
+        this.selectorChooseListener = selectorChooseListener;
     }
 
     public void createAlertDialog() {
@@ -85,11 +88,9 @@ public class ImageAlertDialog {
         imageAdapter.setOnItemClickListener(new ImageAdapter.OnItemClickListener() {
             @Override
             public void OnClick(int pos, int image, String text) {
-                StaticData.selectedFinalImage = image;
-                StaticData.selectedItemName = text;
 
                 uri = getUriToDrawable(image);
-                binding.selectedImage.setImageResource(StaticData.selectedFinalImage);
+                binding.selectedImage.setImageResource(image);
             }
         });
 
@@ -106,6 +107,7 @@ public class ImageAlertDialog {
                 if (uri != null) {
                     arProductToPlace = new ArProduct( ArProduct.ArProductType.IMAGE_MODEL);
                     arProductToPlace.setUri(uri);
+                    selectorChooseListener.SelectorChooseListener(ArProduct.ArProductType.IMAGE_MODEL);
                 }
 
                 dialog.dismiss();

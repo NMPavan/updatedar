@@ -25,6 +25,7 @@ import com.example.arpart1.Renderable.ArHelper;
 import com.example.arpart1.Renderable.ModelRenderable3D;
 import com.example.arpart1.Renderable.ViewRenderableImage;
 import com.example.arpart1.Renderable.ViewRenderableText;
+import com.example.arpart1.Utils.SelectorChooseListener;
 import com.example.arpart1.Utils.StaticData;
 import com.example.arpart1.databinding.ActivityMainBinding;
 import com.google.ar.core.Anchor;
@@ -41,7 +42,7 @@ import static com.example.arpart1.Utils.StaticData.arProductToPlace;
 import static com.example.arpart1.Utils.StaticData.placedObjects;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SelectorChooseListener {
     private static final String TAG = SceneActivity.class.getSimpleName();
 
 
@@ -96,11 +97,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        imageAlertDialog = new ImageAlertDialog(this);
-        textAlertDialog = new TextAlertDialog(this);
-        threeDModelAlertDialog = new ThreeDModelAlertDialog(this);
+        imageAlertDialog = new ImageAlertDialog(this, this::SelectorChooseListener);
+        textAlertDialog = new TextAlertDialog(this, this::SelectorChooseListener);
+        threeDModelAlertDialog = new ThreeDModelAlertDialog(this, this::SelectorChooseListener);
         setListeners();
         setArFragment();
+        updateCount();
 
         try {
             View decorView = getWindow().getDecorView();
@@ -172,18 +174,47 @@ public class MainActivity extends AppCompatActivity {
         setTextToTextView(countPlacedObjects[0], binding.count3dPlaced);
         setTextToTextView(countPlacedObjects[1], binding.countImagePlaced);
         setTextToTextView(countPlacedObjects[2], binding.countTextPlaced);
+        StaticData.showToast(getApplicationContext(), "count 0:" + countPlacedObjects[0] + "1:" + countPlacedObjects[1] + "2:" + countPlacedObjects[2]);
 
     }
 
     private void setTextToTextView(int countPlacedObject, TextView textView) {
         textView.setBackground(null);
+
         if (countPlacedObject != 0) {
             textView.setText(String.valueOf(countPlacedObject));
             textView.setBackground(getDrawable(R.drawable.object_count_background));
-        }
-        else {
+            textView.setVisibility(View.VISIBLE);
+
+        } else {
             textView.setText("");
+            textView.setVisibility(View.GONE);
         }
+
+
+    }
+
+    private void selectorChoose(ArProduct.ArProductType arProductType) {
+        View view = null;
+        switch (arProductType) {
+            case IMAGE_MODEL:
+                view = binding.ClImageModel;
+                break;
+            case THREED_MODEL:
+                view = binding.Cl3dModel;
+                break;
+            case TEXT_MODEL:
+                view = binding.ClTextModel;
+                break;
+
+        }
+        binding.ClImageModel.setBackground(null);
+        binding.ClTextModel.setBackground(null);
+        binding.Cl3dModel.setBackground(null);
+
+        if (view != null)
+            view.setBackground(getDrawable(R.drawable.selected_background));
+
 
     }
 
@@ -220,4 +251,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void SelectorChooseListener(ArProduct.ArProductType arProductType) {
+        selectorChoose(arProductType);
+    }
 }

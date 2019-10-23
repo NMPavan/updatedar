@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.arpart1.Models.ArProduct;
 import com.example.arpart1.R;
+import com.example.arpart1.Utils.SelectorChooseListener;
 import com.example.arpart1.Utils.StaticData;
 import com.example.arpart1.databinding.TextAlertDialogBinding;
 
@@ -19,6 +20,7 @@ import static com.example.arpart1.Utils.StaticData.arProductToPlace;
 public class TextAlertDialog {
 
     private Context context;
+    private SelectorChooseListener selectorChooseListener;
     private TextAlertDialogBinding binding;
     AlertDialog dialog;
     private TextWatcher listener = new TextWatcher() {
@@ -45,8 +47,9 @@ public class TextAlertDialog {
         }
     };
 
-    public TextAlertDialog(Context context) {
+    public TextAlertDialog(Context context, SelectorChooseListener selectorChooseListener) {
         this.context = context;
+        this.selectorChooseListener = selectorChooseListener;
     }
 
     public void createAlertDialog() {
@@ -83,6 +86,7 @@ public class TextAlertDialog {
 
                     arProductToPlace = new ArProduct( ArProduct.ArProductType.TEXT_MODEL);
                     arProductToPlace.setText(binding.textForPlane.getText().toString());
+                    selectorChooseListener.SelectorChooseListener(ArProduct.ArProductType.TEXT_MODEL);
 
                     dialog.dismiss();
                 }
