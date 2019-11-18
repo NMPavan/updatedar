@@ -2,14 +2,15 @@ package com.example.arpart1;
 
 import android.app.Activity;
 import android.app.ActivityManager;
+
+import androidx.databinding.ViewDataBinding;
+import androidx.lifecycle.Observer;
 import android.content.Context;
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.Build;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -22,23 +23,16 @@ import com.example.arpart1.AlerDialogs.ThreeDModelAlertDialog;
 import com.example.arpart1.AlerDialogs.TextAlertDialog;
 import com.example.arpart1.Models.ArProduct;
 import com.example.arpart1.Renderable.ArHelper;
-import com.example.arpart1.Renderable.ModelRenderable3D;
-import com.example.arpart1.Renderable.ViewRenderableImage;
-import com.example.arpart1.Renderable.ViewRenderableText;
 import com.example.arpart1.Utils.SelectorChooseListener;
 import com.example.arpart1.Utils.StaticData;
 import com.example.arpart1.databinding.ActivityMainBinding;
-import com.google.ar.core.Anchor;
 import com.google.ar.core.HitResult;
 import com.google.ar.core.Plane;
-import com.google.ar.sceneform.AnchorNode;
-import com.google.ar.sceneform.math.Quaternion;
-import com.google.ar.sceneform.math.Vector3;
 import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.BaseArFragment;
-import com.google.ar.sceneform.ux.TransformableNode;
 
-import static com.example.arpart1.Utils.StaticData.arProductToPlace;
+import java.util.ArrayList;
+
 import static com.example.arpart1.Utils.StaticData.placedObjects;
 
 
@@ -137,13 +131,21 @@ public class MainActivity extends AppCompatActivity implements SelectorChooseLis
                 public void onTapPlane(HitResult hitResult, Plane plane, MotionEvent motionEvent) {
                     ArHelper arHelper = new ArHelper(MainActivity.this, arFragment, hitResult, plane, motionEvent);
                     arHelper.placeModel();
+
+
                     try {
-                        arHelper.getArrayListMutableLiveData().observe(MainActivity.this, arProducts -> {
-                            updateCount();
+                        arHelper.getArrayListMutableLiveData().observe(MainActivity.this,
+                                new Observer<ArrayList<ArProduct>>() {
+                            @Override
+                            public void onChanged(@Nullable ArrayList<ArProduct> arProducts) {
+                                updateCount();
+                            }
                         });
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+
+
                 }
             });
     }

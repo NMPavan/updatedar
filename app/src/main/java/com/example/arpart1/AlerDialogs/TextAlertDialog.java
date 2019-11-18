@@ -2,7 +2,7 @@ package com.example.arpart1.AlerDialogs;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;

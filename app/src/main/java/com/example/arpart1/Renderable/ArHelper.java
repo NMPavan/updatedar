@@ -1,6 +1,6 @@
 package com.example.arpart1.Renderable;
 
-import android.arch.lifecycle.MutableLiveData;
+import androidx.lifecycle.MutableLiveData;
 import android.content.Context;
 import android.os.Handler;
 import android.util.Log;
@@ -28,7 +28,7 @@ import com.google.ar.sceneform.ux.TransformableNode;
 import java.util.ArrayList;
 
 
-import static android.support.constraint.Constraints.TAG;
+import static androidx.constraintlayout.widget.Constraints.TAG;
 import static com.example.arpart1.Utils.StaticData.placedObjects;
 import static com.google.ar.sceneform.rendering.MaterialFactory.MATERIAL_TEXTURE;
 import static com.google.ar.sceneform.rendering.PlaneRenderer.MATERIAL_UV_SCALE;
