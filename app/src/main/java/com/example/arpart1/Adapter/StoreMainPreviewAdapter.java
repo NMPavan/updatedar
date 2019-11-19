@@ -2,7 +2,9 @@ package com.example.arpart1.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +21,7 @@ import com.example.arpart1.StoreMainActivity;
 import com.example.arpart1.Utils.StaticData;
 import com.example.arpart1.databinding.LayoutStoreMainViewBinding;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
@@ -67,8 +70,10 @@ public class StoreMainPreviewAdapter extends RecyclerView.Adapter<StoreMainPrevi
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, ProductListActivity.class);
-                  intent.putExtra("producttype",dataList[i]);
-                  intent.putExtra( "product",  products);
+                /*Bundle args = new Bundle();
+                args.putSerializable("ARRAYLIST",(Serializable)products);
+                intent.putExtra("bundle",args);*/
+                intent.putExtra("data", (ArrayList<Product>) products);
                   context.startActivity(intent);
 
 

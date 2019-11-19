@@ -1,6 +1,9 @@
 package com.example.arpart1.Models;
 
-public class Product {
+
+import java.io.Serializable;
+
+public class Product implements Serializable {
 
     public enum productType {
 

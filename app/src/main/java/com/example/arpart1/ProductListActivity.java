@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.example.arpart1.Adapter.ProductListAdapter;
@@ -19,7 +20,7 @@ public class ProductListActivity extends AppCompatActivity {
 
     RecyclerView product_list;
     ProductListAdapter productListAdapter;
-    ArrayList<Product> product;
+    ArrayList<Product> products;
     Context context;
 
 
@@ -27,31 +28,31 @@ public class ProductListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_list);
+        products=new ArrayList<>();
+
+        products=(ArrayList<Product>)getIntent().getSerializableExtra("data");
+
+        for (Product product:products)
+            Log.d("Clicked",""+product.getProductPrice());
+        
 
         product_list = findViewById(R.id.recycler_productlist);
 
         product_list.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
 
-        productListAdapter = new ProductListAdapter( product);
+
+        productListAdapter=new ProductListAdapter(products);
+
         product_list.setAdapter(productListAdapter);
 
 
 
-        getIncomingIntent();
+
 
 
     }
 
-    private void getIncomingIntent() {
-        if (getIntent().hasExtra("producttype") && getIntent().hasExtra("product")) {
 
-            String productType = getIntent().getStringExtra("producttype");
-            product = ((ArrayList<Product>)getIntent().getSerializableExtra("product"));
-
-            productListAdapter.notifyDataSetChanged();
-
-        }
-    }
 
 
 
