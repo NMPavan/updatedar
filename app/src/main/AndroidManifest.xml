@@ -19,17 +19,16 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="false"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".ProductListActivity"></activity>
+        <activity android:name=".ProductDescriptionActivity" />
         <activity android:name=".StoreMainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-        <activity android:name=".MainActivity">
-
-        </activity>
+        <activity android:name=".MainActivity" />
         <!--
          This tag indicates that this application requires ARCore. This results in the
             application only being visible in the Google Play Store on devices that support

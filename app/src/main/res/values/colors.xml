@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorPrimary">#5F4591</color>
+    <color name="colorPrimaryDark">#5F4591</color>
     <color name="colorAccent">#D81B60</color>
     <color name="white">#ffffff</color>
     <color name="gray">#686868</color>
@@ -11,5 +11,12 @@
     <color name="blue_border_background">#DDEDFA</color>
     <color name="blue_border_stroke">#BEDBE3</color>
     <color name="object_count_background">#AA2828</color>
+    <color name="contentDividerLine">#e0e0e0</color>
+    <color name="contentBadgeTitle">#a9a9a9</color>
+    <color name="titleBadgeTitle">#adafb1</color>
+    <color name="titleBadgeText">#adafb1</color>
+    <color name="bgTitleLeft">#594691</color>
+    <color name="bgTitleRight">#ffffff</color>
+    <color name="bgContentTop">#594691</color>
 
 </resources>

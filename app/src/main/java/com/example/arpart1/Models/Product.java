@@ -11,6 +11,23 @@ public class Product {
             productDescription, productDescriptionDummy = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent in tellus sed sem iaculis bibendum. ";
     int productModel, productPrice, productImage;
     productType productType;
+    int bitMap;
+
+    public String getProductDescriptionDummy() {
+        return productDescriptionDummy;
+    }
+
+    public void setProductDescriptionDummy(String productDescriptionDummy) {
+        this.productDescriptionDummy = productDescriptionDummy;
+    }
+
+    public int getBitMap() {
+        return bitMap;
+    }
+
+    public void setBitMap(int bitMap) {
+        this.bitMap = bitMap;
+    }
 
     public Product(String productName, String productDescription, int productModel, int productPrice, int productImage, Product.productType productType) {
         this.productName = productName;

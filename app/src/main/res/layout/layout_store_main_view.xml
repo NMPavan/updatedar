@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
     </data>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="5dp"
+        android:layout_margin="10dp"
+        android:padding="6dp"
+        app:cardElevation="5dp">
 
     <LinearLayout
 
@@ -71,4 +81,5 @@
 
         <!--circular recycler view-->
     </LinearLayout>
+    </androidx.cardview.widget.CardView>
 </layout>

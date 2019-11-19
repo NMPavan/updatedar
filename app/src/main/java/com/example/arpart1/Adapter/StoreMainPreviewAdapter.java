@@ -1,6 +1,8 @@
 package com.example.arpart1.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.arpart1.Models.Product;
+import com.example.arpart1.ProductListActivity;
 import com.example.arpart1.R;
+import com.example.arpart1.StoreMainActivity;
 import com.example.arpart1.Utils.StaticData;
 import com.example.arpart1.databinding.LayoutStoreMainViewBinding;
 
@@ -51,12 +55,27 @@ public class StoreMainPreviewAdapter extends RecyclerView.Adapter<StoreMainPrevi
         viewHolder.binding.storeName.setText(dataList[i].toString());
 
         ArrayList<Product> products = new ArrayList<>();
+
         for (Product product :
                 StaticData.products) {
-            if (product.getProductType().equals(dataList[i]))
+            if ( product.getProductType().equals(dataList[i]))
                 products.add(product);
 
         }
+
+        viewHolder.binding.cardMore1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ProductListActivity.class);
+                  intent.putExtra("producttype",dataList[i]);
+                  intent.putExtra( "product",  products);
+                  context.startActivity(intent);
+
+
+//dataList[i] - productType we selected
+                // products -arraylist<product>
+            }
+        });
         StoreMainListAdapter storeMainListAdapter = new StoreMainListAdapter(products, context);
         viewHolder.binding.recyclerview.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         viewHolder.binding.recyclerview.setAdapter(storeMainListAdapter);
