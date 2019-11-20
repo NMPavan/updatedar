@@ -41,7 +41,7 @@ public class ProductListActivity extends AppCompatActivity {
         product_list.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
 
 
-        productListAdapter=new ProductListAdapter(products);
+        productListAdapter=new ProductListAdapter(products,this);
 
         product_list.setAdapter(productListAdapter);
 

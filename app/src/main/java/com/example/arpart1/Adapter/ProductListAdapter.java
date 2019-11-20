@@ -23,8 +23,9 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     private Context context;
     private ProductListAdapter.OnItemClickListener itemClickListener;
     int index = -1;
+    ArrayList<Product> productListModels;
 
-    public ProductListAdapter(ArrayList<Product> productListModels) {
+    public ProductListAdapter(ArrayList<Product> productListModels,Context context) {
         this.productListModels = productListModels;
 
         this.context=context;
@@ -33,7 +34,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         itemClickListener = listener;
     }
 
-    ArrayList<Product> productListModels;
+
 
     @NonNull
     @Override
@@ -68,7 +69,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     public class ProductViewHolder extends RecyclerView.ViewHolder {
         ImageView recyclerViewImage;
         TextView ProductName,ProductCost;
-        int pos;
+        /*int pos;*/
         LinearLayout linearLayout;
         public ProductViewHolder(@NonNull View itemView,final OnItemClickListener listener ) {
             super(itemView);
@@ -76,7 +77,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             ProductName=itemView.findViewById(R.id.product_name);
             ProductCost=itemView.findViewById(R.id.product_price);
             linearLayout=itemView.findViewById(R.id.productlistlayout);
-            linearLayout.setOnClickListener(new View.OnClickListener() {
+            /*linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     pos = getAdapterPosition();
@@ -90,7 +91,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
 
                 }
-            });
+            });*/
         }
     }
     public interface OnItemClickListener {
