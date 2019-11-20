@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.arpart1.Models.Product;
+import com.example.arpart1.ProductDescriptionActivity;
 import com.example.arpart1.ProductListActivity;
 import com.example.arpart1.R;
 import com.example.arpart1.StoreMainActivity;
@@ -81,6 +82,9 @@ public class StoreMainPreviewAdapter extends RecyclerView.Adapter<StoreMainPrevi
                 // products -arraylist<product>
             }
         });
+
+
+
         StoreMainListAdapter storeMainListAdapter = new StoreMainListAdapter(products, context);
         viewHolder.binding.recyclerview.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         viewHolder.binding.recyclerview.setAdapter(storeMainListAdapter);

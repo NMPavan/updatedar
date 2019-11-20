@@ -1,6 +1,7 @@
 package com.example.arpart1.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.arpart1.Models.Product;
+import com.example.arpart1.ProductDescriptionActivity;
 import com.example.arpart1.R;
 import com.example.arpart1.databinding.LayoutStoreMainListBinding;
 
@@ -47,6 +49,17 @@ public class StoreMainListAdapter extends RecyclerView.Adapter<StoreMainListAdap
         storeMainPreviewViewHolder.binding.productImage.setImageResource(dataList.get(i).getProductImage());
 //        storeMainPreviewViewHolder.binding.productImage.setImageDrawable(context.getDrawable(dataList.get(i).getProductImage()));
         storeMainPreviewViewHolder.binding.productName.setText(dataList.get(i).getProductName());
+
+        storeMainPreviewViewHolder.binding.cardparent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ProductDescriptionActivity.class);
+                intent.putExtra("image",dataList.get(i).getProductImage());
+                intent.putExtra("price",dataList.get(i).getProductPrice());
+                intent.putExtra("desc",dataList.get(i).getProductDescription());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -66,7 +79,7 @@ public class StoreMainListAdapter extends RecyclerView.Adapter<StoreMainListAdap
             super(binding.getRoot());
             this.binding=binding;
 
-            binding.parentlayout.setOnClickListener(new View.OnClickListener() {
+            binding.cardparent.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     pos = getAdapterPosition();
